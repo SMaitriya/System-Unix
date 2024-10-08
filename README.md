@@ -54,7 +54,7 @@ Explication:
 - -h : signifie "human-readable", ce qui convertit les informations en un format facile à lire ( des unités comme Mo, Go, To au lieu de blocs).
 
 
-2.5)indiquer dans le rendu et expliquer les commandes et le resultat obtenu
+2.5) Indiquer dans le rendu et expliquer les commandes et le resultat obtenu
 
 a)echo $LANG
 
