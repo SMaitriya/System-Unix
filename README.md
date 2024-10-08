@@ -1,41 +1,41 @@
-# System-Unix
+1. Installation de la Machine Virtuelle
+   
+Rencontré des difficultés de compréhension, mais j'ai finalement réussi.
 
-1 Installation Machine virtuelle
+3. Post-Installation
+   
+2.1 Configuration SSH et Connexion
+   
+Pour établir une connexion SSH à la machine virtuelle :
 
-Des difficultés de compréhension, mais j'ai fini par réussir . 
-
-2 Post-Installation
-
-2.1 configuration ssh et connection
-
-Pour pouvoir faire une connections ssh à la machien virtuel il faut :
-- executer Apt install ssh
--	Commande => nano /etc/ssh/sshd_config
--	Changez deux lignes de codes :  PermitRootLogin yes et PasswordAuthentication yes
--	enregistrer
--	restart ssh avec commande => systemctl restart ssh
--	vérifier la ssh => systemctl status ssh
--	faire une redirection de ports (port hôte 2222 et port hote 22)
--	Se connecter sur la machine hôte avec la commande ssh root@localhost
--	Connecté !
--	(Chez moi cela n'a pas fonctionné, j'ai dû utilisé la commande ip a sur la machine virtuel , récupéré l'ip et faire la commande ssh -p 2222 root@127.0.0.1 sur mon terminal)
+- Exécuter apt install ssh.
+- Modifier le fichier de configuration SSH : nano /etc/ssh/sshd_config
+- Changer les lignes : PermitRootLogin yes et PasswordAuthentication yes
+- Enregistrer et quitter.
+- Redémarrer le service SSH : systemctl restart ssh.
+- Vérifier l'état de SSH : systemctl status ssh.
+- Configurer la redirection de ports (hôte : 2222, invité : 22).
+- Se connecter depuis l'hôte : ssh root@localhost.
+(Cela n'a pas fonctionné chez moi, j'ai alors utiliser ip a sur la machine virtuelle pour obtenir l'IP et exécuté ssh -p 2222 root@127.0.0.1 depuis le terminal).
 
 
 2.3 Nombre de paquets
 
 Commande => dpkg -l | wc -l
 
-- dpkg -l  => ceci liste tous les paquets installés.
-wc -l  => compte le nombre de lignes dans cette liste
-donc dpkg -l | wc -l => correspond au nombre total de paquets installé
-
-Resultat : 
+Résultat : 
 root@serveur1:~# dpkg -l | wc -l
 353
 
+Explication:
+- dpkg -l : Liste tous les paquets installés.
+- wc -l : Compte le nombre de lignes dans cette liste.
+- Ainsi, la commande dpkg -l | wc -l donne le nombre total de paquets installés.
+
+
 2.4 Space Usage
 
-COmmande => df -h
+Commande => df -h
 
 Resultat : 
 root@serveur1:~# df -h
@@ -54,7 +54,7 @@ Explication:
 - -h : signifie "human-readable", ce qui convertit les informations en un format facile à lire ( des unités comme Mo, Go, To au lieu de blocs).
 
 
-2.5 a indiquer dans le rendu et expliquer les commandes et le resultat obtenu
+2.5)indiquer dans le rendu et expliquer les commandes et le resultat obtenu
 
 a)echo $LANG
 
@@ -63,7 +63,7 @@ root@serveur1:~# echo $LANG
 fr_FR.UTF-8
 
 Explication : 
-Cette commande affiche la locale du système, c'est-à-dire la langue et les paramètres régionaux en cours d'utilisation. Ici, cela signifie que le système utilise le français avec encodage UTF-8.
+Cette commande affiche les paramètres régionaux du système, indiquant la langue et les réglages en cours d'utilisation. Dans ce cas, cela signifie que le système utilise le français avec encodage UTF-8.
 
 b) env
 
@@ -89,7 +89,7 @@ DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/0/bus
 SSH_TTY=/dev/pts/0
 _=/usr/bin/env
 
-Explication : Elle retourne toutes les variarables d'environnement définies pour la session. Ici on voit la langue utilisé, la connexion SSH , l'ID utilisateur, le shell utilisé (bash) ect
+Cette commande retourne toutes les variables d'environnement définies pour la session. Elle affiche des informations telles que la langue utilisée, la connexion SSH, l'ID utilisateur, et le shell actif (bash), etc.
 
 c) nom machine : hostname
 
@@ -98,7 +98,7 @@ root@serveur1:~# hostname
 serveur1
 Commande : hostname
 
-Explication : c'est le nom d'hôte utilisé par le système pour identifier l'ordinateur sur un réseau. Ici c'est serveur1
+C'est le nom d'hôte utilisé par le système pour identifier l'ordinateur sur un réseau. Dans ce cas, le nom d'hôte est serveur1.
 
 d) hostname -d
 
@@ -107,8 +107,8 @@ root@serveur1:~# hostname -d
 ufr-info-p6.jussieu.fr
 
 Explication : 
-Cette commande retourne le nom de domaine de la machine (il y'a aussi -f pour hostname+domain)
-
+- Cette commande retourne le nom de domaine de la machine. L'option -f peut être utilisée pour afficher le nom d'hôte complet (hostname + domain).
+  
 f) verification emplacement depots : cat /etc/apt/sources.list | grep -v -E ’^#|^$’
 
 Résultat : 
@@ -119,7 +119,6 @@ deb http://deb.debian.org/debian/ bookworm-updates main
 
 Explication :
 - cat /etc/apt/sources.list : Affiche le contenu du fichier sources.list.
-- grep -v -E '^#|^$' :
 - grep => rechercher du texte dans des fichiers
 - -v : affiche les lignes qui ne correspondent pas au motif
 - -E : pouvoir utiliser des expressions régulières
@@ -136,9 +135,9 @@ avahi-autoipd:!:19998::::::
 sshd:!:19998::::::
 
 Explication :
-- cat /etc/shadow : contient les mots de passes
-- grep -vE ':\*:|:!\*:' : exclu des lignes comme :*: ou :!*:, ce qui signifie que les utilisateurs avec des comptes verrouillés ou désactivés ne seront pas affichés.
-- cat /etc/shadow | grep -vE ':\*:|:!\*:' : Cette commande affiche les comptes d'utilisateurs avec des mots de passe actifs stocké sous forme cryptée et excluent ceux qui sont désactivés ou verrouillés
+- cat /etc/shadow : Affiche le contenu du fichier shadow, qui contient les mots de passe des utilisateurs.
+- grep -vE ':*:|:!*:' : Exclut les lignes avec :*: ou :!*:, indiquant que les comptes sont verrouillés ou désactivés.
+- La commande cat /etc/shadow | grep -vE ':\*:|:!\*:' affiche les comptes d'utilisateurs avec des mots de passe actifs (stockés sous forme cryptée) tout en excluant ceux qui sont désactivés ou verrouillés.
 
 
 h)  compte utilisateurs : cat /etc/passwd | grep -vE ’nologin|sync’
@@ -148,7 +147,7 @@ root@serveur1:~# cat /etc/passwd | grep -vE 'nologin|sync'
 root:x:0:0:root:/root:/bin/bash
 
 Explication :
-- root:x:0:0:root:/root:/bin/bash : x=>mot de passe stocké dans shadow,0 => IUD
+- root:x:0:0:root:/root:/bin/bash : x=>mot de passe stocké dans shadow et 0 => IUD  (User ID)
 - cat /etc/passwd | grep -vE 'nologin|sync' : affiche les informations du compte "root", en omettant les comptes d'utilisateurs qui ne peuvent pas se connecter, comme ceux ayant nologin ou sync
   
 i) fdisk -l 
@@ -171,7 +170,7 @@ Périphérique    Début      Fin Secteurs Taille Type
 
 Explication:
 - -l : liste les informations
-- fdisk -l  : Cette commande retourne les partitions du disque dur du système.
+- fdisk -l  : Affiche les partitions du disque dur du système
 
 j) fdisk -x
 
@@ -219,9 +218,30 @@ tmpfs              5,0M       0  5,0M   0% /run/lock
 tmpfs              197M       0  197M   0% /run/user/0
 
 Explication:
+- df : Disk Free , elle affiche des informations sur l'utilisation de l'espace disque
+- Cette commande retourne des informations sur l'espace utilisé et disponible pour tous les disques et partitions de la machine (la taille totale, l'espace utilisé, l'espace disponible et le pourcentage d'utilisation)
 
+3.1) installation automatique
 
+Un fichier preseed est un fichier texte utilisé pour automatiser l'installation d'un système d'exploitation en fournissant des réponses aux questions, ce qui facilite les installations sur plusieurs ordinateurs.
 
+3.2 rescue mode
 
+- J'ai redémarré la machine virtuelle et accédé au menu GRUB en appuyant sur Shift pendant le démarrage.
+- Dans le menu GRUB, j'ai recherché et sélectionné l'option "Recovery mode".
+- J'ai appuyé sur Entrée pour lancer le mode Recovery.
+- J'ai eu accès à un shell root.
+- J'ai changé le mot de passe root en entrant la commande : passwd root.
+- J'ai saisi un nouveau mot de passe et l'ai confirmé.
+- J'ai redémarré la machine.
+- Après le redémarrage, j'ai pu me connecter en tant que root avec le nouveau mot de passe.
 
+3.3 redimentionnement partition
+
+- Vérifier l'état des disques et partitions avec df -h et fdisk -l.
+- Démonter la partition racine avec umount /dev/sda1 en mode recovery (ou via un live USB).
+- Utiliser fdisk pour supprimer et recréer la partition avec une taille plus grande, en gardant le même point de départ.
+- Sauvegarder les modifications et redémarrer la machine pour appliquer les changements.
+- Après redémarrage, exécuter resize2fs pour ajuster la taille du système de fichiers.
+- Vérifier que la partition a bien été redimensionnée avec df -h
 
