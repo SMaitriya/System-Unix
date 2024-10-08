@@ -1,8 +1,8 @@
-1. Installation de la Machine Virtuelle
-   
-Rencontré des difficultés de compréhension, mais j'ai finalement réussi.
+1/ Installation de la Machine Virtuelle
 
-3. Post-Installation
+- Rencontré des difficultés de compréhension, mais j'ai finalement réussi.
+
+2. Post-Installation
    
 2.1 Configuration SSH et Connexion
    
