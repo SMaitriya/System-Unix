@@ -1,4 +1,4 @@
-1/ Installation de la Machine Virtuelle
+1. Installation de la Machine Virtuelle
 
 - Rencontré des difficultés de compréhension, mais j'ai finalement réussi.
 
