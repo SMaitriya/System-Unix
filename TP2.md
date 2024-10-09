@@ -64,7 +64,45 @@ total 20
 -rw-r--r-- 1 root root  142  2 oct.  13:57 known_hosts.old
 
 b) Accéder au dossier authorized_keys:
-nano authorized_keys
+nano authorized_keys et coller la clef publique
+
+1.4 Exercice : Authentification par clef : depuis la machine hote
+
+Connection a la machine : ssh -i C:\Users\maitr\.ssh\maclef -p 2222 root@127.0.0.1
+PS C:\Users\maitr> ssh -i C:\Users\maitr\.ssh\maclef -p 2222 root@127.0.0.1
+Linux serveur1 6.1.0-25-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.106-3 (2024-08-26) x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Wed Oct  9 20:59:27 2024 from 10.0.2.2
+
+1.5 Exercice : Securisez
+
+- aller dans la config : root@serveur1:~/.ssh# nano /etc/ssh/sshd_config
+- Editer :
+# To disable tunneled clear text passwords, change to no here!
+PasswordAuthentication no
+PermitRootLogin without-password
+- sauvegarder
+- Restart : root@serveur1:~/.ssh# systemctl restart sshd
+- Resultat :
+PS C:\Users\maitr> ssh -p 2222 root@127.0.0.1
+root@127.0.0.1: Permission denied (publickey).
+
+Attaques type brute-force SSH : cela consistent à tester de nombreux mots de passe sur un compte utilisateur pour trouver le bon (via des scripts notamment)
+
+Protection :
+- clés SSH comme on vient de faire : connexion par clé publique en déasctivant les connexions par mot de passe
+- Changer le port SSH par défaut (22) : modifier le port pour le SSH . Les bots cherchent généralement sur ce port
+- Limiter les utilisateurs autorisés : sshd_config pour n'autoriser que certains utilisateurs ou groupes à se connecter
+- Configurer un pare-feu (firewall) : Bloquer les connexions sur les ports non utilisés et limiter l'accès par adresse IP.
+
+2) Processus
+2.1 Exercice : Etude des processus UNIX
 
 
 
