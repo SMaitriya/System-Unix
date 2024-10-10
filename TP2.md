@@ -34,7 +34,7 @@ PS C:\Users\maitr> mv C:\Users\maitr\.ssh\id_rsa.pub C:\Users\maitr\.ssh\maclef.
 PS C:\Users\maitr> ls C:\Users\maitr\.ssh
 
 
-    Répertoire : C:\Users\maitr\.ssh
+Répertoire : C:\Users\maitr\.ssh
 
 
 Mode                 LastWriteTime         Length Name
