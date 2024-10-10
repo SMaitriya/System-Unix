@@ -29,12 +29,12 @@ The key's randomart image is:
 genere un cople de clé publique / privée id_rsa : fichier qui contient la clé privée id_rsa.pub : fichier qui contient la cle publique
 
 b) renommé les dossiers en maclef et maclet.pub
-PS C:\Users\maitr> mv C:\Users\maitr\.ssh\id_rsa C:\Users\maitr\.ssh\maclef
-PS C:\Users\maitr> mv C:\Users\maitr\.ssh\id_rsa.pub C:\Users\maitr\.ssh\maclef.pub
-PS C:\Users\maitr> ls C:\Users\maitr\.ssh
+- PS C:\Users\maitr> mv C:\Users\maitr\.ssh\id_rsa C:\Users\maitr\.ssh\maclef
+- PS C:\Users\maitr> mv C:\Users\maitr\.ssh\id_rsa.pub C:\Users\maitr\.ssh\maclef.pub
+- PS C:\Users\maitr> ls C:\Users\maitr\.ssh
 
 
-Répertoire : C:\Users\maitr\.ssh
+- Répertoire : C:\Users\maitr\.ssh
 
 
 Mode                 LastWriteTime         Length Name
