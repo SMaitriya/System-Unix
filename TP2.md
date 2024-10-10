@@ -84,7 +84,6 @@ Last login: Wed Oct  9 20:59:27 2024 from 10.0.2.2
 
 - aller dans la config : root@serveur1:~/.ssh# nano /etc/ssh/sshd_config
 - Editer :
-# To disable tunneled clear text passwords, change to no here!
 PasswordAuthentication no
 PermitRootLogin without-password
 - sauvegarder
@@ -92,6 +91,7 @@ PermitRootLogin without-password
 - Resultat :
 PS C:\Users\maitr> ssh -p 2222 root@127.0.0.1
 root@127.0.0.1: Permission denied (publickey).
+- Il faut utiliser sa clef publique pour pouvoir se connecter avec : ssh -i .ssh\maclef -p 2222 root@127.0.0.1
 
 Attaques type brute-force SSH : cela consistent à tester de nombreux mots de passe sur un compte utilisateur pour trouver le bon (via des scripts notamment)
 
@@ -103,6 +103,146 @@ Protection :
 
 2) Processus
 2.1 Exercice : Etude des processus UNIX
+
+a) Chercher sur le man la commande pour lister tous les processus
+- man ps
+- "/"
+- chercher "procesus"
+- Resultat :
+Pour voir tous les processus du système en utilisant la syntaxe BSD :
+   ps ax
+   ps axu
+
+- Resultat:
+root@serveur1:~# ps ax
+    PID TTY      STAT   TIME COMMAND
+      1 ?        Ss     0:00 /sbin/init
+      2 ?        S      0:00 [kthreadd]
+      3 ?        I<     0:00 [rcu_gp]
+      4 ?        I<     0:00 [rcu_par_gp]
+      5 ?        I<     0:00 [slub_flushwq]
+      6 ?        I<     0:00 [netns]
+      8 ?        I<     0:00 [kworker/0:0H-kblockd]
+     10 ?        I<     0:00 [mm_percpu_wq]
+     11 ?        I      0:00 [rcu_tasks_kthread]
+     12 ?        I      0:00 [rcu_tasks_rude_kthread]
+     13 ?        I      0:00 [rcu_tasks_trace_kthread]
+     14 ?        S      0:00 [ksoftirqd/0]
+     15 ?        I      0:00 [rcu_preempt]
+     16 ?        S      0:00 [migration/0]
+     18 ?        S      0:00 [cpuhp/0]
+     20 ?        S      0:00 [kdevtmpfs]
+     21 ?        I<     0:00 [inet_frag_wq]
+     22 ?        S      0:00 [kauditd]
+     23 ?        S      0:00 [khungtaskd]
+     25 ?        S      0:00 [oom_reaper]
+     26 ?        I<     0:00 [writeback]
+     28 ?        S      0:00 [kcompactd0]
+     29 ?        SN     0:00 [ksmd]
+     30 ?        SN     0:00 [khugepaged]
+     31 ?        I<     0:00 [kintegrityd]
+     32 ?        I<     0:00 [kblockd]
+     33 ?        I<     0:00 [blkcg_punt_bio]
+     34 ?        I<     0:00 [tpm_dev_wq]
+     35 ?        I<     0:00 [edac-poller]
+     36 ?        I<     0:00 [devfreq_wq]
+     38 ?        S      0:00 [kswapd0]
+     44 ?        I<     0:00 [kthrotld]
+     46 ?        I<     0:00 [acpi_thermal_pm]
+     48 ?        I<     0:00 [mld]
+     49 ?        I<     0:00 [ipv6_addrconf]
+     54 ?        I<     0:00 [kstrp]
+     59 ?        I<     0:00 [zswap-shrink]
+     60 ?        I<     0:00 [kworker/u3:0]
+    125 ?        I<     0:00 [ata_sff]
+    126 ?        S      0:00 [scsi_eh_0]
+    127 ?        I<     0:00 [scsi_tmf_0]
+    128 ?        S      0:00 [scsi_eh_1]
+    129 ?        S      0:00 [scsi_eh_2]
+    130 ?        I<     0:00 [scsi_tmf_2]
+    131 ?        I<     0:00 [scsi_tmf_1]
+    138 ?        I<     0:00 [kworker/0:2H-kblockd]
+    170 ?        S      0:00 [jbd2/sda1-8]
+    171 ?        I<     0:00 [ext4-rsv-conver]
+    212 ?        Ss     0:00 /lib/systemd/systemd-journald
+    233 ?        Ss     0:00 /lib/systemd/systemd-udevd
+    263 ?        I<     0:00 [cryptd]
+    299 ?        S      0:00 [irq/18-vmwgfx]
+    368 ?        S      0:00 [jbd2/sda2-8]
+    373 ?        I<     0:00 [ext4-rsv-conver]
+    400 ?        S      0:00 [jbd2/sda3-8]
+    401 ?        I<     0:00 [ext4-rsv-conver]
+    421 ?        Ssl    0:00 /lib/systemd/systemd-timesyncd
+    437 ?        Ss     0:00 /usr/sbin/cron -f
+    438 ?        Ss     0:00 /usr/bin/dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation
+    441 ?        Ss     0:00 /lib/systemd/systemd-logind
+    455 ?        Ss     0:00 dhclient -4 -v -i -pf /run/dhclient.enp0s3.pid -lf /var/lib/dhcp/dhclient.enp0s3.leases -I
+    458 ?        Ss     0:00 /sbin/wpa_supplicant -u -s -O DIR=/run/wpa_supplicant GROUP=netdev
+    502 tty1     Ss     0:00 /bin/login -p --
+    511 ?        Ss     0:00 sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups
+    551 ?        Ss     0:00 /lib/systemd/systemd --user
+    552 ?        S      0:00 (sd-pam)
+    558 tty1     S+     0:00 -bash
+    563 ?        Ss     0:00 sshd: root@pts/0
+    569 pts/0    Ss     0:00 -bash
+    591 ?        I      0:00 [kworker/u2:0-flush-8:0]
+    592 ?        I      0:00 [kworker/0:0-ata_sff]
+    657 ?        I      0:00 [kworker/0:1-cgroup_destroy]
+    681 ?        I      0:00 [kworker/u2:2-events_unbound]
+    682 ?        I      0:00 [kworker/0:2-ata_sff]
+    684 ?        I      0:00 [kworker/0:3-events]
+    686 pts/0    R+     0:00 ps ax
+
+b) TIME
+
+- L'information TIME donne le temps total utilisé par le processus.
+
+c) Processus + utilisé le processeur sur votre machine
+- utilisez la commande "top"
+- Resultat :
+  PID UTIL.     PR  NI    VIRT    RES    SHR S  %CPU  %MEM    TEMPS+ COM.
+    563 root      20   0   17996  10920   9108 S   0,3   0,5   0:00.74 sshd
+      1 root      20   0  102116  12140   9172 S   0,0   0,6   0:00.67 systemd
+      2 root      20   0       0      0      0 S   0,0   0,0   0:00.00 kthreadd
+
+    PID UTIL.     PR  NI    VIRT    RES    SHR S  %CPU  %MEM    TEMPS+ COM.
+    688 root      20   0       0      0      0 I   0,3   0,0   0:00.96 kworker/0:0-events
+
+C'est sshd et kworker qui ont le plus utilisé le processeur sur ma machine
+
+d) Premier processus lancé après le démarrage du système : avec -p 1
+
+Résultat :
+root@serveur1:~# ps -p 1
+    PID TTY          TIME CMD
+      1 ?        00:00:00 systemd
+      
+Le premier processus lancé après le demarrage est celui avec le PID 1(Process ID 1).
+
+e) A quelle heure votre machine a-t-elle d´emarr´ee ? Trouvez une autre commande permetant de
+trouver le temps depuis lequel votre serveur tourne
+
+e1>
+Résultat : 
+root@serveur1:~# who -b
+         démarrage système 2024-10-10 16:03
+e2> Résultat:
+root@serveur1:~# uptime
+ 16:59:27 up 55 min,  2 users,  load average: 0,00, 0,00, 0,0
+
+f) Nombre de processus crées : ps -aux | wc -l  
+
+root@serveur1:~# ps -aux | wc -l
+77
+
+2.2 -Sous UNIX, chaque processus (except´e le premier) est cr´e´e par un autre processus, son
+processus p`ere. Le processus p`ere d’un processus est identifi´e par son PPID (Parent PID)
+
+
+
+
+
+
 
 
 
