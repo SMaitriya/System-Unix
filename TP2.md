@@ -1,4 +1,4 @@
-1.1 Exercice : Connection ssh root (reprise fin tp-01)
+#1.1 Exercice : Connection ssh root (reprise fin tp-01)
 
 
 a) Creation d'une clef publique et privé dans notre local
@@ -244,14 +244,35 @@ processus p`ere. Le processus p`ere d’un processus est identifi´e par son PPI
 
 =>  Trouver une option de la commande ps permettant d’afficher le PPID d’un processus.
 
-root@serveur1:~# ps -o ppid
-   PPID
-    550
-    566
+root@serveur1:~#  ps -o pid,ppid,comm
+    PID    PPID COMMAND
+    566     550 bash
+   1672     566 ps
 
 550 et 566 sont les PPID du processus.
 
 – Donner la liste ordonn´ee de tous les processus ancˆetres de la commande ps en cours d’ex´ecution.
+root@serveur1:~# ps -o ppid
+   PPID
+    550
+    566
+    
+3 - Reprendre la question pr´ec´edente avec la commande pstree.
+Vous devrez sans doute installer ce package : voir apt update ; apt search ; apt install.
+
+- Lorsque j'ai fait apt search : 
+root@serveur1:~# apt search pstree
+En train de trier... Fait
+Recherche en texte intégral... Fait
+psmisc/stable 23.6-1 amd64
+  utilitaires qui utilisent le système de fichiers proc
+
+- Il faut donc installer psmisc :
+root@serveur1:~# apt install psmisc
+
+- faire la rechercher en utilisant le PID du processus:
+root@serveur1:~# pstree -ps 566
+systemd(1)───sshd(508)───sshd(550)───bash(566)───pstree(1730)
 
 
 
