@@ -1,4 +1,4 @@
-#1.1 Exercice : Connection ssh root (reprise fin tp-01)
+1.1 Exercice : Connection ssh root (reprise fin tp-01)
 
 
 a) Creation d'une clef publique et privé dans notre local
@@ -251,7 +251,7 @@ root@serveur1:~#  ps -o pid,ppid,comm
 
 550 et 566 sont les PPID du processus.
 
-– Donner la liste ordonn´ee de tous les processus ancˆetres de la commande ps en cours d’ex´ecution.
+– Donner la liste ordonnée de tous les processus ancˆetres de la commande ps en cours d’exécution.
 root@serveur1:~# ps -o ppid
    PPID
     550
@@ -265,7 +265,7 @@ root@serveur1:~# apt search pstree
 En train de trier... Fait
 Recherche en texte intégral... Fait
 psmisc/stable 23.6-1 amd64
-  utilitaires qui utilisent le système de fichiers proc
+utilitaires qui utilisent le système de fichiers proc
 
 - Il faut donc installer psmisc :
 root@serveur1:~# apt install psmisc
@@ -273,6 +273,32 @@ root@serveur1:~# apt install psmisc
 - faire la rechercher en utilisant le PID du processus:
 root@serveur1:~# pstree -ps 566
 systemd(1)───sshd(508)───sshd(550)───bash(566)───pstree(1730)
+
+4 - Essayez la commande top, qui affiche les mˆemes informations que ps mais en raffraichissant
+p´eriodiquement l’affichage.
+
+Afficher dans top la liste de processus
+tri´ee par occupation m´emoire (“resident memory”) d´ecroissant
+
+- cliquez sur "?" pour plus d'information
+- pendant que "top" est lancé j'ai appuyé sur shift + "m"
+- Resultat :
+ PID UTIL.     PR  NI    VIRT    RES    SHR S  %CPU  %MEM    TEMPS+ COM.
+      1 root      20   0  167636  12052   9108 S   0,0   0,6   0:01.35 systemd
+    550 root      20   0   17996  11064   9248 S   0,0   0,5   0:03.58 sshd
+    211 root      20   0   32968  11052   7940 S   0,0   0,5   0:00.28 systemd-journal
+    553 root      20   0   18976  10632   8900 S   0,0   0,5   0:00.13 systemd
+    508 root      20   0   15432   8904   7664 S   0,0   0,4   0:00.01 sshd
+    453 root      20   0   25200   7852   6820 S   0,0   0,4   0:00.11 systemd-logind
+    422 systemd+  20   0   90080   6624   5748 S   0,0   0,3   0:00.30 systemd-timesyn
+    234 root      20   0   26184   5880   4584 S   0,0   0,3   0:00.18 systemd-udevd
+    468 root      20   0   16532   5800   4932 S   0,0   0,3   0:00.20 wpa_supplicant
+   1748 root      20   0   11728   5228   3304 R   0,0   0,3   0:00.09 top                                                  448 message+  20   0    9120   4912   4340 S   0,0   0,2   0:00.09 dbus-daemon
+    566 root      20   0    8184   4796   3472 S   0,0   0,2   0:00.10 bash
+    451 root      20   0    5868   3600   2768 S   0,0   0,2   0:00.02 dhclient
+    556 root      20   0  168696   3076      0 S   0,0   0,2   0:00.00 (sd-pam)
+    446 root      20   0    6612   2692   2444 S   0,0   0,1   0:00.03 cron
+    497 root      20   0    5876   1008    924 S   0,0   0,1   0:00.01 agetty          
 
 
 
