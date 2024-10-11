@@ -105,10 +105,10 @@ Protection :
 2.1 Exercice : Etude des processus UNIX
 
 a) Chercher sur le man la commande pour lister tous les processus
-- man ps
-- "/"
-- chercher "procesus"
-- Resultat :
+1- man ps
+2- "/"
+3- chercher "procesus"
+4- Resultat :
 Pour voir tous les processus du système en utilisant la syntaxe BSD :
    ps ax
    ps axu
@@ -219,24 +219,43 @@ root@serveur1:~# ps -p 1
       
 Le premier processus lancé après le demarrage est celui avec le PID 1(Process ID 1).
 
-e) A quelle heure votre machine a-t-elle d´emarr´ee ? Trouvez une autre commande permetant de
-trouver le temps depuis lequel votre serveur tourne
+e) A quelle heure votre machine a-t-elle démarrée ? 
 
 e1>
 Résultat : 
 root@serveur1:~# who -b
-         démarrage système 2024-10-10 16:03
-e2> Résultat:
+démarrage système 2024-10-10 16:03
+
+e2> 
 root@serveur1:~# uptime
  16:59:27 up 55 min,  2 users,  load average: 0,00, 0,00, 0,0
+
+ Elle a démarré à 16H03
 
 f) Nombre de processus crées : ps -aux | wc -l  
 
 root@serveur1:~# ps -aux | wc -l
 77
 
+Il y'a 77 processus crées.
+
 2.2 -Sous UNIX, chaque processus (except´e le premier) est cr´e´e par un autre processus, son
 processus p`ere. Le processus p`ere d’un processus est identifi´e par son PPID (Parent PID)
+
+=>  Trouver une option de la commande ps permettant d’afficher le PPID d’un processus.
+
+root@serveur1:~# ps -o ppid
+   PPID
+    550
+    566
+
+550 et 566 sont les PPID du processus.
+
+– Donner la liste ordonn´ee de tous les processus ancˆetres de la commande ps en cours d’ex´ecution.
+
+
+
+
 
 
 
