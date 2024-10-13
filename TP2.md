@@ -4,6 +4,7 @@
 a) Creation d'une clef publique et privé dans notre local
 
 Résultat :
+
 PS C:\Users\maitr> ssh-keygen
 Generating public/private rsa key pair.
 Enter file in which to save the key (C:\Users\maitr/.ssh/id_rsa):#vide
@@ -26,9 +27,11 @@ The key's randomart image is:
 |            +==BB|
 +----[SHA256]-----+
 
+
 genere un cople de clé publique / privée id_rsa : fichier qui contient la clé privée id_rsa.pub : fichier qui contient la cle publique
 
 b) renommé les dossiers en maclef et maclet.pub
+
 - PS C:\Users\maitr> mv C:\Users\maitr\.ssh\id_rsa C:\Users\maitr\.ssh\maclef
 - PS C:\Users\maitr> mv C:\Users\maitr\.ssh\id_rsa.pub C:\Users\maitr\.ssh\maclef.pub
 - PS C:\Users\maitr> ls C:\Users\maitr\.ssh
@@ -47,14 +50,17 @@ Mode                 LastWriteTime         Length Name
 -a----        09/10/2024     19:32            569 maclef.pub
 
 c) Copier sa clef publique avec la commande cat ~/.ssh/id_rsa.pub
+
 PS C:\Users\maitr> cat ~/.ssh/id_rsa.pub
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC6VVJcvVEWVHEpkwmq1jptiAFDwWdjlc9Y4l85MQYy1jkLxNdRsislWEbBUCL1/6L09FaKDQGqzqpRsv4qfKMDHSHzowxcSZOGqieJq3nhye2gc3kQZV/Xm0xkgyCUmjzDjpgkQpTbePK6JO1xoC1SASN9RJHcSWc8sg+uP4jaLswWBhgyyYJcoMatnDVjaijhHwkLnQehTnOvsP54Lmev0bDFI9/UkAiTAZTUbokiiNmTmYnmSEoDiypq5e5YBynpFrVfkMzZ76saqn5P1jPaa4EOu97Yc1Hk39WV4DwZgXkzjrXluk5yAAxrFkC9BL3y+Q4DyTacakKQ79hNvyLTMKn7BM/Hk8pma+KloRqXMwxPFvEDOL6gA7xXjF2TPRahM29p9HFVs1dymv6m4l+JsCPca2rdjO0EGsfp6tvI8azt77WaNc8HxbE2PwmklufSf1rXmtMN57NK/ZD7MpLEYihfJVmEB8OzMJf3vVWfmWICZxtYD/m3fQZI+1L1T4M= maitr@Maitriya
+
 
 Dans le cas reel ne pas mettre de passphrase pour proteger sa clef privé est une mauvaise pratique car  si quelqu'un parvient à obtenir votre clé privée, il pourra acceder à la machine sans difficulté
 
 1.3 Exercice : Authentification par clef / Connection serveur
 
 a) Vérifier que le ficher authorized_keys existe :
+
 root@serveur1:~# cd /root/.ssh && ls -l
 total 20
 -rw-r--r-- 1 root root  568  9 oct.  16:25 authorized_keys #le voici
@@ -64,6 +70,7 @@ total 20
 -rw-r--r-- 1 root root  142  2 oct.  13:57 known_hosts.old
 
 b) Accéder au dossier authorized_keys:
+
 nano authorized_keys et coller la clef publique
 
 1.4 Exercice : Authentification par clef : depuis la machine hote
@@ -89,8 +96,10 @@ PermitRootLogin without-password
 - sauvegarder
 - Restart : root@serveur1:~/.ssh# systemctl restart sshd
 - Resultat :
+  
 PS C:\Users\maitr> ssh -p 2222 root@127.0.0.1
 root@127.0.0.1: Permission denied (publickey).
+
 - Il faut utiliser sa clef publique pour pouvoir se connecter avec : ssh -i .ssh\maclef -p 2222 root@127.0.0.1
 
 Attaques type brute-force SSH : cela consistent à tester de nombreux mots de passe sur un compte utilisateur pour trouver le bon (via des scripts notamment)
@@ -105,10 +114,12 @@ Protection :
 2.1 Exercice : Etude des processus UNIX
 
 a) Chercher sur le man la commande pour lister tous les processus
+
 1- man ps
 2- "/"
 3- chercher "procesus"
 4- Resultat :
+
 Pour voir tous les processus du système en utilisant la syntaxe BSD :
    ps ax
    ps axu
@@ -198,8 +209,10 @@ b) TIME
 - L'information TIME donne le temps total utilisé par le processus.
 
 c) Processus + utilisé le processeur sur votre machine
+
 - utilisez la commande "top"
 - Resultat :
+  
   PID UTIL.     PR  NI    VIRT    RES    SHR S  %CPU  %MEM    TEMPS+ COM.
     563 root      20   0   17996  10920   9108 S   0,3   0,5   0:00.74 sshd
       1 root      20   0  102116  12140   9172 S   0,0   0,6   0:00.67 systemd
@@ -207,15 +220,18 @@ c) Processus + utilisé le processeur sur votre machine
 
     PID UTIL.     PR  NI    VIRT    RES    SHR S  %CPU  %MEM    TEMPS+ COM.
     688 root      20   0       0      0      0 I   0,3   0,0   0:00.96 kworker/0:0-events
+  
 
 C'est sshd et kworker qui ont le plus utilisé le processeur sur ma machine
 
 d) Premier processus lancé après le démarrage du système : avec -p 1
 
 Résultat :
+
 root@serveur1:~# ps -p 1
     PID TTY          TIME CMD
       1 ?        00:00:00 systemd
+      
       
 Le premier processus lancé après le demarrage est celui avec le PID 1(Process ID 1).
 
@@ -223,10 +239,12 @@ e) A quelle heure votre machine a-t-elle démarrée ?
 
 e1>
 Résultat : 
+
 root@serveur1:~# who -b
 démarrage système 2024-10-10 16:03
 
 e2> 
+
 root@serveur1:~# uptime
  16:59:27 up 55 min,  2 users,  load average: 0,00, 0,00, 0,0
 
@@ -261,7 +279,8 @@ root@serveur1:~# ps -o ppid
 3 - Reprendre la question pr´ec´edente avec la commande pstree.
 Vous devrez sans doute installer ce package : voir apt update ; apt search ; apt install.
 
-- Lorsque j'ai fait apt search : 
+- Lorsque j'ai fait apt search :
+  
 root@serveur1:~# apt search pstree
 En train de trier... Fait
 Recherche en texte intégral... Fait
@@ -269,17 +288,18 @@ psmisc/stable 23.6-1 amd64
 utilitaires qui utilisent le système de fichiers proc
 
 - Il faut donc installer psmisc :
+  
 root@serveur1:~# apt install psmisc
 
 - faire la rechercher en utilisant le PID du processus:
+  
 root@serveur1:~# pstree -ps 566
 systemd(1)───sshd(508)───sshd(550)───bash(566)───pstree(1730)
 
 4 - Essayez la commande top, qui affiche les mˆemes informations que ps mais en raffraichissant
 p´eriodiquement l’affichage.
 
-Afficher dans top la liste de processus
-tri´ee par occupation m´emoire (“resident memory”) d´ecroissant
+Afficher dans top la liste de processus triee par occupation m´emoire (“resident memory”) d´ecroissant
 
 - cliquez sur "?" pour plus d'information
 - pendant que "top" est lancé j'ai appuyé sur shift + "m"
