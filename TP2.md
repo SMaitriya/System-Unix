@@ -252,6 +252,7 @@ root@serveur1:~#  ps -o pid,ppid,comm
 550 et 566 sont les PPID du processus.
 
 – Donner la liste ordonnée de tous les processus ancˆetres de la commande ps en cours d’exécution.
+
 root@serveur1:~# ps -o ppid
    PPID
     550
