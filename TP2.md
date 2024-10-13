@@ -116,8 +116,11 @@ Protection :
 a) Chercher sur le man la commande pour lister tous les processus
 
 1- man ps
+
 2- "/"
+
 3- chercher "procesus"
+
 4- Resultat :
 
 Pour voir tous les processus du système en utilisant la syntaxe BSD :
@@ -125,6 +128,7 @@ Pour voir tous les processus du système en utilisant la syntaxe BSD :
    ps axu
 
 - Resultat:
+  
 root@serveur1:~# ps ax
     PID TTY      STAT   TIME COMMAND
       1 ?        Ss     0:00 /sbin/init
