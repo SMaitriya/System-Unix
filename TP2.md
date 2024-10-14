@@ -92,6 +92,10 @@ nano authorized_keys et coller la clef publique
 1.4 Exercice : Authentification par clef : depuis la machine hote
 
 Connection a la machine : ssh -i C:\Users\maitr\.ssh\maclef -p 2222 root@127.0.0.1
+
+Résultat : 
+
+
 PS C:\Users\maitr> ssh -i C:\Users\maitr\.ssh\maclef -p 2222 root@127.0.0.1
 Linux serveur1 6.1.0-25-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.106-3 (2024-08-26) x86_64
 
