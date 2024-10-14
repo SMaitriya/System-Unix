@@ -110,6 +110,10 @@ Protection :
 - Limiter les utilisateurs autorisés : sshd_config pour n'autoriser que certains utilisateurs ou groupes à se connecter
 - Configurer un pare-feu (firewall) : Bloquer les connexions sur les ports non utilisés et limiter l'accès par adresse IP.
 
+
+
+***
+
 2) Processus
 2.1 Exercice : Etude des processus UNIX
 
@@ -273,14 +277,14 @@ root@serveur1:~#  ps -o pid,ppid,comm
 
 550 et 566 sont les PPID du processus.
 
-– Donner la liste ordonnée de tous les processus ancˆetres de la commande ps en cours d’exécution.
+– Donner la liste ordonnée de tous les processus ancetres de la commande ps en cours d’exécution.
 
 root@serveur1:~# ps -o ppid
    PPID
     550
     566
     
-3 - Reprendre la question pr´ec´edente avec la commande pstree.
+3 - Reprendre la question précédente avec la commande pstree.
 Vous devrez sans doute installer ce package : voir apt update ; apt search ; apt install.
 
 - Lorsque j'ai fait apt search :
@@ -300,10 +304,10 @@ root@serveur1:~# apt install psmisc
 root@serveur1:~# pstree -ps 566
 systemd(1)───sshd(508)───sshd(550)───bash(566)───pstree(1730)
 
-4 - Essayez la commande top, qui affiche les mˆemes informations que ps mais en raffraichissant
+4 - Essayez la commande top, qui affiche les mêmes informations que ps mais en raffraichissant
 p´eriodiquement l’affichage.
 
-Afficher dans top la liste de processus triee par occupation m´emoire (“resident memory”) d´ecroissant
+Afficher dans top la liste de processus triee par occupation mémoire (“resident memory”) décroissant
 
 - cliquez sur "?" pour plus d'information
 - pendant que "top" est lancé j'ai appuyé sur shift + "m"
