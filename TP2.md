@@ -30,6 +30,9 @@ The key's randomart image is:
 
 genere un cople de clé publique / privée id_rsa : fichier qui contient la clé privée id_rsa.pub : fichier qui contient la cle publique
 
+***
+
+
 b) renommé les dossiers en maclef et maclet.pub
 
 - PS C:\Users\maitr> mv C:\Users\maitr\.ssh\id_rsa C:\Users\maitr\.ssh\maclef
@@ -49,6 +52,9 @@ Mode                 LastWriteTime         Length Name
 -a----        09/10/2024     19:32           2602 maclef
 -a----        09/10/2024     19:32            569 maclef.pub
 
+***
+
+
 c) Copier sa clef publique avec la commande cat ~/.ssh/id_rsa.pub
 
 PS C:\Users\maitr> cat ~/.ssh/id_rsa.pub
@@ -56,6 +62,9 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC6VVJcvVEWVHEpkwmq1jptiAFDwWdjlc9Y4l85MQYy
 
 
 Dans le cas reel ne pas mettre de passphrase pour proteger sa clef privé est une mauvaise pratique car  si quelqu'un parvient à obtenir votre clé privée, il pourra acceder à la machine sans difficulté
+
+***
+
 
 1.3 Exercice : Authentification par clef / Connection serveur
 
@@ -69,9 +78,16 @@ total 20
 -rw------- 1 root root  978  2 oct.  13:57 known_hosts
 -rw-r--r-- 1 root root  142  2 oct.  13:57 known_hosts.old
 
+***
+
+
 b) Accéder au dossier authorized_keys:
 
 nano authorized_keys et coller la clef publique
+
+
+***
+
 
 1.4 Exercice : Authentification par clef : depuis la machine hote
 
@@ -86,6 +102,9 @@ individual files in /usr/share/doc/*/copyright.
 Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
 permitted by applicable law.
 Last login: Wed Oct  9 20:59:27 2024 from 10.0.2.2
+
+***
+
 
 1.5 Exercice : Securisez
 
@@ -212,9 +231,15 @@ root@serveur1:~# ps ax
     684 ?        I      0:00 [kworker/0:3-events]
     686 pts/0    R+     0:00 ps ax
 
+  ***
+
+
 b) TIME
 
 - L'information TIME donne le temps total utilisé par le processus.
+
+  ***
+
 
 c) Processus + utilisé le processeur sur votre machine
 
@@ -232,6 +257,9 @@ c) Processus + utilisé le processeur sur votre machine
 
 C'est sshd et kworker qui ont le plus utilisé le processeur sur ma machine
 
+***
+
+
 d) Premier processus lancé après le démarrage du système : avec -p 1
 
 Résultat :
@@ -242,6 +270,9 @@ root@serveur1:~# ps -p 1
       
       
 Le premier processus lancé après le demarrage est celui avec le PID 1(Process ID 1).
+
+***
+
 
 e) A quelle heure votre machine a-t-elle démarrée ? 
 
@@ -258,12 +289,19 @@ root@serveur1:~# uptime
 
  Elle a démarré à 16H03
 
+ ***
+
+
 f) Nombre de processus crées : ps -aux | wc -l  
 
 root@serveur1:~# ps -aux | wc -l
 77
 
 Il y'a 77 processus crées.
+
+
+***
+
 
 2.2 -Sous UNIX, chaque processus (except´e le premier) est cr´e´e par un autre processus, son
 processus p`ere. Le processus p`ere d’un processus est identifi´e par son PPID (Parent PID)
@@ -283,6 +321,9 @@ root@serveur1:~# ps -o ppid
    PPID
     550
     566
+
+  ***
+
     
 3 - Reprendre la question précédente avec la commande pstree.
 Vous devrez sans doute installer ce package : voir apt update ; apt search ; apt install.
@@ -303,6 +344,10 @@ root@serveur1:~# apt install psmisc
   
 root@serveur1:~# pstree -ps 566
 systemd(1)───sshd(508)───sshd(550)───bash(566)───pstree(1730)
+
+
+***
+
 
 4 - Essayez la commande top, qui affiche les mêmes informations que ps mais en raffraichissant
 p´eriodiquement l’affichage.
