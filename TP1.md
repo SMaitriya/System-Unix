@@ -2,6 +2,9 @@
 
 - Rencontré des difficultés de compréhension, mais j'ai finalement réussi.
 
+***
+
+
 2. Post-Installation
    
 2.1 Configuration SSH et Connexion
@@ -220,6 +223,9 @@ tmpfs              197M       0  197M   0% /run/user/0
 Explication:
 - df : Disk Free , elle affiche des informations sur l'utilisation de l'espace disque
 - Cette commande retourne des informations sur l'espace utilisé et disponible pour tous les disques et partitions de la machine (la taille totale, l'espace utilisé, l'espace disponible et le pourcentage d'utilisation)
+
+***
+
 
 3.1) installation automatique
 
