@@ -425,7 +425,7 @@ D'après h dans top:
 
 - Créer deux fichiers : 
 
-root@serveur1:~# nano date-toto.sh
+root@serveur1:# nano date-toto.sh  
 root@serveur1:~# nano date.sh
 
 - Coller le script demandé et enregistré
