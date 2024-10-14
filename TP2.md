@@ -485,7 +485,7 @@ On lance les scripts. Ensuite on fait une commande pour trouver leur PID : ps au
 
 Résultat :
 
-root@serveur1:~# ps aux | grep date
+root@serveur1:# ps aux | grep date
 root         988  0.0  0.0   2576   896 pts/0    T    21:55   0:00 /bin/sh ./date-toto.sh
 root         998  0.0  0.0   2576   896 pts/0    T    21:59   0:00 /bin/sh ./date.sh
 toto 17:33:37
