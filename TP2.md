@@ -135,6 +135,8 @@ Protection :
 
 
 
+
+***
 ***
 
 2) Processus
@@ -298,8 +300,11 @@ root@serveur1:~# uptime
 
 f) Nombre de processus crées : ps -aux | wc -l  
 
+Résultat:
+
 root@serveur1:~# ps -aux | wc -l
 77
+
 
 Il y'a 77 processus crées.
 
@@ -326,8 +331,9 @@ root@serveur1:~# ps -o ppid
     550
     566
 
-  ***
-
+  
+***
+***
     
 3 - Reprendre la question précédente avec la commande pstree.
 Vous devrez sans doute installer ce package : voir apt update ; apt search ; apt install.
@@ -351,16 +357,20 @@ systemd(1)───sshd(508)───sshd(550)───bash(566)───pstree(
 
 
 ***
+***
 
 
 4 - Essayez la commande top, qui affiche les mêmes informations que ps mais en raffraichissant
 p´eriodiquement l’affichage.
 
-Afficher dans top la liste de processus triee par occupation mémoire (“resident memory”) décroissant
+a) Afficher dans top la liste de processus triee par occupation mémoire (“resident memory”) décroissant
 
-- cliquez sur "?" pour plus d'information
+
 - pendant que "top" est lancé j'ai appuyé sur shift + "m"
+- (on peut aussi utiliser htop en commande après l'avoir installé)
+  
 - Resultat :
+  
  PID UTIL.     PR  NI    VIRT    RES    SHR S  %CPU  %MEM    TEMPS+ COM.
       1 root      20   0  167636  12052   9108 S   0,0   0,6   0:01.35 systemd
     550 root      20   0   17996  11064   9248 S   0,0   0,5   0:03.58 sshd
@@ -371,15 +381,145 @@ Afficher dans top la liste de processus triee par occupation mémoire (“reside
     422 systemd+  20   0   90080   6624   5748 S   0,0   0,3   0:00.30 systemd-timesyn
     234 root      20   0   26184   5880   4584 S   0,0   0,3   0:00.18 systemd-udevd
     468 root      20   0   16532   5800   4932 S   0,0   0,3   0:00.20 wpa_supplicant
-   1748 root      20   0   11728   5228   3304 R   0,0   0,3   0:00.09 top                                                  448 message+  20   0    9120   4912   4340 S   0,0   0,2   0:00.09 dbus-daemon
+   1748 root      20   0   11728   5228   3304 R   0,0   0,3   0:00.09 top                                                
     566 root      20   0    8184   4796   3472 S   0,0   0,2   0:00.10 bash
     451 root      20   0    5868   3600   2768 S   0,0   0,2   0:00.02 dhclient
     556 root      20   0  168696   3076      0 S   0,0   0,2   0:00.00 (sd-pam)
     446 root      20   0    6612   2692   2444 S   0,0   0,1   0:00.03 cron
-    497 root      20   0    5876   1008    924 S   0,0   0,1   0:00.01 agetty          
+    497 root      20   0    5876   1008    924 S   0,0   0,1   0:00.01 agetty
 
 
+***
 
+
+b)Quel est le processus le plus gournabnd sur votre machine ? A quoi correspond-il ? (rappel :
+vous pouvez utiliser man truc pour d´ecouvrir ce que fait truc...).
+
+C'est : systemd . J'ai donc utilisé la commande man systemd pour comprendre ce que c'est, mais c'était assez long.
+
+Systemd : c'est un système d'initialisation et un gestionnaire de services pour Linux, chargé de démarrer les processus et de gérer les dépendances des services. Il assure également la journalisation des événements système.
+
+
+***
+
+c) Trouvez les commandes interactives permettant de : passer l’affichage en couleur, mettre en avant le colonne de trie, changer la colonne de trie.
+
+
+D'après h dans top:
+
+- z : Ca permet d'activé ou désactivé l'affichage en couleur
+- les flèches <> : Déplace la colonne de tri vers la gauche/droite
+- f : Changer la colonne de tri
+
+***
+ 
+ d) Essayez la commande htop. Expliquez les avantages et/ou inconvénients par rapport a top
+
+ 
+-  Avantages de htop : interface conviviale et facile à utiliser.
+-  Inconvénients de htop : il n'est pas installé par défaut , il faut l'installer avec apt install htop (donc prend de la place aussi). Aussi on ne peut pas faire de copier/coller
+
+***
+
+3 Exercice 2 : Arrêt d’un processus
+
+- Créer deux fichiers : 
+
+root@serveur1:~# nano date-toto.sh
+root@serveur1:~# nano date.sh
+
+- Coller le script demandé et enregistré
+
+- Lancer le 1er scripts, les rendez exécutable avec Le mettre en arriere plan (CTRL-Z).
+
+root@serveur1:~# ./date.sh
+
+  -bash: ./date.sh: Permission non accordée
+root@serveur1:~# chmod +x date.sh date-toto.sh (ca permet de rendre les deux scripts exécutable)
+
+Résultat : 
+root@serveur1:~# ./date.sh
+date 21:43:40
+date 21:43:41
+date 21:43:42
+date 21:43:43
+date 21:43:44
+date 21:43:45
+[1]+  Stoppé                 ./date.sh
+
+
+- Lancer le 2eme scripts. Le mettre en arrière plan (CTRL-Z).
+
+Résultat :
+
+root@serveur1:~# ./date-toto.sh
+toto 16:45:37
+toto 16:45:38
+toto 16:45:39
+toto 16:45:40
+[2]+  Stoppé                 ./date-toto.sh
+
+
+- Utilisation de la commande "job" permet de voir l'état des scripts
+
+Résultat :
+
+root@serveur1:~# jobs
+[1]-  Stoppé                 ./date.sh
+[2]+  Stoppé                 ./date-toto.sh
+
+- La commande fg permet de relancer les scripts et CTRL+C pour les arreter
+
+Résultat : 
+
+root@serveur1:~# fg
+./date-toto.sh
+toto 16:51:00
+toto 16:51:01
+toto 16:51:02
+
+
+- Même question en utilisant les commandes ps et kill (avec un PID)
+
+On lance les scripts. Ensuite on fait une commande pour trouver leur PID : ps aux | grep date puis on fait un kill en utilisant leur PID
+
+Résultat :
+
+root@serveur1:~# ps aux | grep date
+root         988  0.0  0.0   2576   896 pts/0    T    21:55   0:00 /bin/sh ./date-toto.sh
+root         998  0.0  0.0   2576   896 pts/0    T    21:59   0:00 /bin/sh ./date.sh
+
+toto 17:33:37
+date 22:33:37
+toto 17:33:38
+date 22:33:38
+
+root@serveur1:~# kill 988 998
+root@serveur1:~#
+
+  
+- Expliquer les scripts à l’aide du man.
+
+
+while true; do ... done : C'est une boucle infinie qui exécute les commandes à l'intérieur de do et done indéfiniment
+
+sleep 1 : Cette commande suspend l'exécution du script pendant 1 seconde
+
+echo -n 'date ' : Cette commande affiche "date " 
+
+date +%T : Cette commande affiche l'heure actuelle
+
+echo -n 'toto ' : Affiche "toto"
+
+date --date '5 hour ago' +%T : Cette commande affiche l'heure actuelle moins 5 heures
+
+
+En bref , le premier script affiche l'heure actuelle, tandis que le deuxième affiche l'heure qu'il était 5 heures auparavant
+
+
+***
+***
+4 Exercice 3 : les tubes
 
 
 
