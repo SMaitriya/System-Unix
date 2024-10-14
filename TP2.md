@@ -493,7 +493,6 @@ date 22:33:37
 toto 17:33:38
 date 22:33:38
 root@serveur1:~# kill 988 998
-root@serveur1:~#
 
   
 - Expliquer les scripts à l’aide du man.
