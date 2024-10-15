@@ -46,7 +46,7 @@ The key's randomart image is:
 - Répertoire : C:\Users\maitr\.ssh
 
 Résultat :
-
+```
 Mode                 LastWriteTime         Length Name
 
 -a----        06/12/2023     15:20            411 id_ed25519
@@ -55,6 +55,7 @@ Mode                 LastWriteTime         Length Name
 -a----        02/10/2024     14:15            927 known_hosts.old
 -a----        09/10/2024     19:32           2602 maclef
 -a----        09/10/2024     19:32            569 maclef.pub
+```
 
 ***
 
@@ -64,10 +65,10 @@ Mode                 LastWriteTime         Length Name
 
 
 Résultat :
-
+```
 PS C:\Users\maitr> cat ~/.ssh/id_rsa.pub
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC6VVJcvVEWVHEpkwmq1jptiAFDwWdjlc9Y4l85MQYy1jkLxNdRsislWEbBUCL1/6L09FaKDQGqzqpRsv4qfKMDHSHzowxcSZOGqieJq3nhye2gc3kQZV/Xm0xkgyCUmjzDjpgkQpTbePK6JO1xoC1SASN9RJHcSWc8sg+uP4jaLswWBhgyyYJcoMatnDVjaijhHwkLnQehTnOvsP54Lmev0bDFI9/UkAiTAZTUbokiiNmTmYnmSEoDiypq5e5YBynpFrVfkMzZ76saqn5P1jPaa4EOu97Yc1Hk39WV4DwZgXkzjrXluk5yAAxrFkC9BL3y+Q4DyTacakKQ79hNvyLTMKn7BM/Hk8pma+KloRqXMwxPFvEDOL6gA7xXjF2TPRahM29p9HFVs1dymv6m4l+JsCPca2rdjO0EGsfp6tvI8azt77WaNc8HxbE2PwmklufSf1rXmtMN57NK/ZD7MpLEYihfJVmEB8OzMJf3vVWfmWICZxtYD/m3fQZI+1L1T4M= maitr@Maitriya
-
+```
 
  - Dans le cas reel ne pas mettre de passphrase pour proteger sa clef privé est une mauvaise pratique car si quelqu'un parvient à obtenir votre clé privée, il pourra acceder à la machine sans difficulté
 
@@ -80,7 +81,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC6VVJcvVEWVHEpkwmq1jptiAFDwWdjlc9Y4l85MQYy
 
 ### a) Vérifier que le ficher authorized_keys existe :
 
-'''
+```
 root@serveur1:~# cd /root/.ssh && ls -l
 total 20
 -rw-r--r-- 1 root root  568  9 oct.  16:25 authorized_keys 
@@ -88,7 +89,7 @@ total 20
 -rw-r--r-- 1 root root  567  9 oct.  15:13 id_rsa.pub
 -rw------- 1 root root  978  2 oct.  13:57 known_hosts
 -rw-r--r-- 1 root root  142  2 oct.  13:57 known_hosts.old
-'''
+```
 
 ***
 
@@ -107,7 +108,7 @@ Connection a la machine : ssh -i C:\Users\maitr\.ssh\maclef -p 2222 root@127.0.0
 
 Résultat : 
 
-
+```
 PS C:\Users\maitr> ssh -i C:\Users\maitr\.ssh\maclef -p 2222 root@127.0.0.1
 Linux serveur1 6.1.0-25-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.106-3 (2024-08-26) x86_64
 
@@ -118,6 +119,7 @@ individual files in /usr/share/doc/*/copyright.
 Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
 permitted by applicable law.
 Last login: Wed Oct  9 20:59:27 2024 from 10.0.2.2
+```
 
 ***
 
@@ -131,9 +133,11 @@ PermitRootLogin without-password
 - sauvegarder
 - Restart : root@serveur1:~/.ssh# systemctl restart sshd
 - Resultat :
-  
+
+```
 PS C:\Users\maitr> ssh -p 2222 root@127.0.0.1
 root@127.0.0.1: Permission denied (publickey).
+```
 
 - Il faut utiliser sa clef publique pour pouvoir se connecter avec : ssh -i .ssh\maclef -p 2222 root@127.0.0.1
 
@@ -146,10 +150,8 @@ Protection :
 - Configurer un pare-feu (firewall) : Bloquer les connexions sur les ports non utilisés et limiter l'accès par adresse IP.
 
 
-
-
 ***
-***
+
 
 # 2) Processus
 
@@ -170,7 +172,8 @@ Pour voir tous les processus du système en utilisant la syntaxe BSD :
    ps axu
 
 - Resultat:
-  
+
+```
 root@serveur1:~# ps ax
     PID TTY      STAT   TIME COMMAND
       1 ?        Ss     0:00 /sbin/init
@@ -249,6 +252,7 @@ root@serveur1:~# ps ax
     682 ?        I      0:00 [kworker/0:2-ata_sff]
     684 ?        I      0:00 [kworker/0:3-events]
     686 pts/0    R+     0:00 ps ax
+```
 
   ***
 
@@ -264,6 +268,7 @@ root@serveur1:~# ps ax
 
 - utilisez la commande "top"
 - Resultat :
+```
   
   PID UTIL.     PR  NI    VIRT    RES    SHR S  %CPU  %MEM    TEMPS+ COM.
     563 root      20   0   17996  10920   9108 S   0,3   0,5   0:00.74 sshd
@@ -272,7 +277,7 @@ root@serveur1:~# ps ax
 
     PID UTIL.     PR  NI    VIRT    RES    SHR S  %CPU  %MEM    TEMPS+ COM.
     688 root      20   0       0      0      0 I   0,3   0,0   0:00.96 kworker/0:0-events
-  
+  ```
 
 C'est sshd et kworker qui ont le plus utilisé le processeur sur ma machine
 
@@ -283,11 +288,13 @@ C'est sshd et kworker qui ont le plus utilisé le processeur sur ma machine
 
 Résultat :
 
+```
 root@serveur1:~# ps -p 1
     PID TTY          TIME CMD
       1 ?        00:00:00 systemd
       
-      
+ ```
+     
 Le premier processus lancé après le demarrage est celui avec le PID 1(Process ID 1).
 
 ***
@@ -298,15 +305,19 @@ Le premier processus lancé après le demarrage est celui avec le PID 1(Process 
 #### e1>
 Résultat : 
 
+```
 root@serveur1:~# who -b
 démarrage système 2024-10-10 16:03
+```
 
 #### e2> 
 
+```
 root@serveur1:~# uptime
  16:59:27 up 55 min,  2 users,  load average: 0,00, 0,00, 0,0
+```
 
- Elle a démarré à 16H03
+ - Elle a démarré à 16H03
 
  ***
 
@@ -315,11 +326,12 @@ root@serveur1:~# uptime
 
 Résultat:
 
+```
 root@serveur1:~# ps -aux | wc -l
 77
+```
 
-
-Il y'a 77 processus crées.
+- Il y'a 77 processus crées.
 
 
 ***
@@ -329,46 +341,55 @@ Il y'a 77 processus crées.
 
 ###  Trouver une option de la commande ps permettant d’afficher le PPID d’un processus.
 
+```
 root@serveur1:~#  ps -o pid,ppid,comm
     PID    PPID COMMAND
     566     550 bash
    1672     566 ps
+```
 
-550 et 566 sont les PPID du processus.
+- 550 et 566 sont les PPID du processus.
 
 ### – Donner la liste ordonnée de tous les processus ancetres de la commande ps en cours d’exécution.
 
+```
 root@serveur1:~# ps -o ppid
    PPID
     550
     566
+```
 
   
-***
+
 ***
     
 # 3 - Reprendre la question précédente avec la commande pstree.
 Vous devrez sans doute installer ce package : voir apt update ; apt search ; apt install.
 
 - Lorsque j'ai fait apt search :
-  
+
+```
 root@serveur1:~# apt search pstree
 En train de trier... Fait
 Recherche en texte intégral... Fait
 psmisc/stable 23.6-1 amd64
 utilitaires qui utilisent le système de fichiers proc
+```
 
 - Il faut donc installer psmisc :
-  
+
+```
 root@serveur1:~# apt install psmisc
+```
 
 - faire la rechercher en utilisant le PID du processus:
-  
+
+```
 root@serveur1:~# pstree -ps 566
 systemd(1)───sshd(508)───sshd(550)───bash(566)───pstree(1730)
+```
 
 
-***
 ***
 
 
@@ -382,7 +403,8 @@ p´eriodiquement l’affichage.
 - (on peut aussi utiliser htop en commande après l'avoir installé)
   
 - Resultat :
-  
+
+```
  PID UTIL.     PR  NI    VIRT    RES    SHR S  %CPU  %MEM    TEMPS+ COM.
       1 root      20   0  167636  12052   9108 S   0,0   0,6   0:01.35 systemd
     550 root      20   0   17996  11064   9248 S   0,0   0,5   0:03.58 sshd
@@ -399,7 +421,7 @@ p´eriodiquement l’affichage.
     556 root      20   0  168696   3076      0 S   0,0   0,2   0:00.00 (sd-pam)
     446 root      20   0    6612   2692   2444 S   0,0   0,1   0:00.03 cron
     497 root      20   0    5876   1008    924 S   0,0   0,1   0:00.01 agetty
-
+```
 
 ***
 
@@ -437,19 +459,25 @@ D'après h dans top:
 
 #### - Créer deux fichiers : 
 
+```
 root@serveur1:# nano date-toto.sh  
 root@serveur1:~# nano date.sh
+```
 
 #### - Coller le script demandé et enregistré
 
 #### - Lancer le 1er scripts, les rendez exécutable avec Le mettre en arriere plan (CTRL-Z).
 
+```
 root@serveur1:~# ./date.sh
 
   -bash: ./date.sh: Permission non accordée
 root@serveur1:~# chmod +x date.sh date-toto.sh (ca permet de rendre les deux scripts exécutable)
+```
 
 Résultat : 
+
+```
 root@serveur1:~# ./date.sh
 date 21:43:40
 date 21:43:41
@@ -459,11 +487,13 @@ date 21:43:44
 date 21:43:45
 [1]+  Stoppé                 ./date.sh
 
+```
 
 #### - Lancer le 2eme scripts. Le mettre en arrière plan (CTRL-Z).
 
 Résultat :
 
+```
 root@serveur1:~# ./date-toto.sh
 toto 16:45:37
 toto 16:45:38
@@ -471,24 +501,30 @@ toto 16:45:39
 toto 16:45:40
 [2]+  Stoppé                 ./date-toto.sh
 
+```
 
 #### - Utilisation de la commande "job" permet de voir l'état des scripts
 
 Résultat :
 
+```
 root@serveur1:~# jobs
 [1]-  Stoppé                 ./date.sh
 [2]+  Stoppé                 ./date-toto.sh
+```
 
 #### - La commande fg permet de relancer les scripts et CTRL+C pour les arreter
 
 Résultat : 
+
+```
 
 root@serveur1:~# fg
 ./date-toto.sh
 toto 16:51:00
 toto 16:51:01
 toto 16:51:02
+```
 
 
 #### - Même question en utilisant les commandes ps et kill (avec un PID)
@@ -497,6 +533,7 @@ On lance les scripts. Ensuite on fait une commande pour trouver leur PID : ps au
 
 Résultat :
 
+```
 root@serveur1:# ps aux | grep date
 
 root         988  0.0  0.0   2576   896 pts/0    T    21:55   0:00 /bin/sh ./date-toto.sh
@@ -509,7 +546,7 @@ date 22:33:38
 
 
 root@serveur1:~# kill 988 998
-
+```
   
 ### Expliquer les scripts à l’aide du man.
 
@@ -550,10 +587,12 @@ En bref , le premier script affiche l'heure actuelle, tandis que le deuxième af
 
 Résultat:
 
+```
 root@serveur1:~# ls | cat
 date.sh
 date-toto.sh
 sssef
+```
 
 ### ls -l | cat > liste
 
@@ -566,12 +605,14 @@ sssef
 
 Résultat : 
 
+```
 root@serveur1:~#  ls -l | tee liste
 total 28
 -rwxr-xr-x 1 root root    80 14 oct.  21:19 date.sh
 -rwxr-xr-x 1 root root    87 14 oct.  21:16 date-toto.sh
 -rw-r--r-- 1 root root   218 15 oct.  20:04 liste
 -rw-r--r-- 1 root root 13067  9 oct.  14:45 sssef
+```
 
 ### ls -l | tee liste | wc -l
 
@@ -579,8 +620,10 @@ total 28
 
 Résultat :
 
+```
 root@serveur1:~# ls -l | tee liste | wc -l
 5
+```
 
 ***
 
@@ -593,6 +636,7 @@ root@serveur1:~# ls -l | tee liste | wc -l
 
 Résultat :
 
+```
 root@serveur1:~# systemctl status rsyslog
 ● rsyslog.service - System Logging Service
      Loaded: loaded (/lib/systemd/system/rsyslog.service; enabled; preset: enabled)
@@ -613,6 +657,7 @@ oct. 15 20:22:10 serveur1 systemd[1]: Started rsyslog.service - System Logging S
 oct. 15 20:22:10 serveur1 rsyslogd[728]: imuxsock: Acquired UNIX socket '/run/systemd/journal/syslog' (fd 3) from syste>
 oct. 15 20:22:10 serveur1 rsyslogd[728]: [origin software="rsyslogd" swVersion="8.2302.0" x-pid="728" x-info="https://w>
 
+```
 
 ## Le principal fichier de configuration de rsyslog est /etc/rsyslog.conf. Dans quel fichier rsyslog ´ecrit-il les messages issus des services standards ? Et la plupart des autres messages ? Vérifier le contenu de ces fichiers
 
@@ -633,7 +678,8 @@ oct. 15 20:22:10 serveur1 rsyslogd[728]: [origin software="rsyslogd" swVersion="
 - Cela n'a pas fonctionné j'ai donc plutot utilisé la commande tail -f /var/log/syslog
   
  Résultat :
- 
+
+ ```
  root@serveur1:~# tail -f /var/log/syslog
 2024-10-15T20:22:10.717566+02:00 serveur1 kernel: [   10.280610] e1000: enp0s3 NIC Link is Up 1000 Mbps Full Duplex, Flow Control: RX
 2024-10-15T20:22:10.717575+02:00 serveur1 kernel: [   10.323868] IPv6: ADDRCONF(NETDEV_CHANGE): enp0s3: link becomes ready
@@ -645,6 +691,7 @@ oct. 15 20:22:10 serveur1 rsyslogd[728]: [origin software="rsyslogd" swVersion="
 2024-10-15T20:30:01.195847+02:00 serveur1 CRON[745]: (root) CMD ([ -x /etc/init.d/anacron ] && if [ ! -d /run/systemd/system ]; then /usr/sbin/invoke-rc.d anacron start >/dev/null; fi)
 2024-10-15T20:34:59.619392+02:00 serveur1 systemd[1]: anacron.service - Run anacron jobs was skipped because of an unmet condition check (ConditionACPower=true).
 2024-10-15T20:41:39.619741+02:00 serveur1 systemd[1]: apt-daily-upgrade.service - Daily apt upgrade and clean activities was skipped because of an unmet condition check (ConditionACPower=true).
+```
 
 ## Que voyez-vous si vous red´emarrez le service cron depuis un autre shell ?
 
@@ -652,6 +699,7 @@ oct. 15 20:22:10 serveur1 rsyslogd[728]: [origin software="rsyslogd" swVersion="
 
 Résultat : 
 
+```
 root@serveur1:~# systemctl restart cron
 root@serveur1:~# tail -f /var/log/syslog
 2024-10-15T20:47:56.571251+02:00 serveur1 cron[763]: (CRON) INFO (pidfile fd = 3)
@@ -664,6 +712,7 @@ root@serveur1:~# tail -f /var/log/syslog
 2024-10-15T20:49:25.991493+02:00 serveur1 systemd[1]: Started cron.service - Regular background program processing daemon.
 2024-10-15T20:49:26.001319+02:00 serveur1 cron[768]: (CRON) INFO (pidfile fd = 3)
 2024-10-15T20:49:26.003639+02:00 serveur1 cron[768]: (CRON) INFO (Skipping @reboot jobs -- not system startup)
+```
 
 ##  Expliquer à quoi sert le fichier /etc/logrotate.conf.
 
@@ -679,6 +728,7 @@ root@serveur1:~# tail -f /var/log/syslog
   
 Résultat : 
 
+```
 root@serveur1:~# dmesg | grep -i 'cpu\|network\|eth\|wlan'
 [    0.003504] CPU MTRRs all blank - virtualized system.
 [    0.010977] ACPI: SSDT 0x000000007FFF02A0 00036C (v01 VBOX   VBOXCPUT 00000002 INTL 20100528)
@@ -705,7 +755,7 @@ root@serveur1:~# dmesg | grep -i 'cpu\|network\|eth\|wlan'
 [    7.175804] cryptd: max_cpu_qlen set to 1000
 [    9.821599] audit: type=1400 audit(1729015022.640:5): apparmor="STATUS" operation="profile_load" profile="unconfined" name="/usr/lib/NetworkManager/nm-dhcp-client.action" pid=419 comm="apparmor_parser"
 [    9.821609] audit: type=1400 audit(1729015022.640:6): apparmor="STATUS" operation="profile_load" profile="unconfined" name="/usr/lib/NetworkManager/nm-dhcp-helper" pid=419 comm="apparmor_parser"
-
+```
 
 
 
