@@ -313,8 +313,7 @@ Il y'a 77 processus crées.
 ***
 
 
-## 2.2 -Sous UNIX, chaque processus (except´e le premier) est cr´e´e par un autre processus, son
-processus p`ere. Le processus p`ere d’un processus est identifi´e par son PPID (Parent PID)
+## 2.2 -Sous UNIX, chaque processus (except´e le premier) est cr´e´e par un autre processus, son processus père. Le processus père d’un processus est identifi´e par son PPID (Parent PID)
 
 ###  Trouver une option de la commande ps permettant d’afficher le PPID d’un processus.
 
@@ -424,14 +423,14 @@ D'après h dans top:
 
 # 3 Exercice 2 : Arrêt d’un processus
 
-- Créer deux fichiers : 
+#### - Créer deux fichiers : 
 
 root@serveur1:# nano date-toto.sh  
 root@serveur1:~# nano date.sh
 
-- Coller le script demandé et enregistré
+#### - Coller le script demandé et enregistré
 
-- Lancer le 1er scripts, les rendez exécutable avec Le mettre en arriere plan (CTRL-Z).
+#### - Lancer le 1er scripts, les rendez exécutable avec Le mettre en arriere plan (CTRL-Z).
 
 root@serveur1:~# ./date.sh
 
@@ -449,7 +448,7 @@ date 21:43:45
 [1]+  Stoppé                 ./date.sh
 
 
-- Lancer le 2eme scripts. Le mettre en arrière plan (CTRL-Z).
+#### - Lancer le 2eme scripts. Le mettre en arrière plan (CTRL-Z).
 
 Résultat :
 
@@ -461,7 +460,7 @@ toto 16:45:40
 [2]+  Stoppé                 ./date-toto.sh
 
 
-- Utilisation de la commande "job" permet de voir l'état des scripts
+#### - Utilisation de la commande "job" permet de voir l'état des scripts
 
 Résultat :
 
@@ -469,7 +468,7 @@ root@serveur1:~# jobs
 [1]-  Stoppé                 ./date.sh
 [2]+  Stoppé                 ./date-toto.sh
 
-- La commande fg permet de relancer les scripts et CTRL+C pour les arreter
+#### - La commande fg permet de relancer les scripts et CTRL+C pour les arreter
 
 Résultat : 
 
@@ -480,7 +479,7 @@ toto 16:51:01
 toto 16:51:02
 
 
-### - Même question en utilisant les commandes ps et kill (avec un PID)
+#### - Même question en utilisant les commandes ps et kill (avec un PID)
 
 On lance les scripts. Ensuite on fait une commande pour trouver leur PID : ps aux | grep date puis on fait un kill en utilisant leur PID
 
@@ -521,7 +520,7 @@ En bref , le premier script affiche l'heure actuelle, tandis que le deuxième af
 
 ***
 ***
-4 Exercice 3 : les tubes
+# 4 Exercice 3 : les tubes
 
 
 
