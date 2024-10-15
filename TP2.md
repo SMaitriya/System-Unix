@@ -519,8 +519,180 @@ En bref , le premier script affiche l'heure actuelle, tandis que le deuxième af
 
 
 ***
-***
+
 # 4 Exercice 3 : les tubes
+
+## Quelle est la diff´erence entre tee et cat ?
+
+- cat : Affiche le contenu d'un fichier ou combine plusieurs fichiers.
+
+- tee : Affiche du texte et l'enregistre en même temps dans un fichier.
+
+## Que font les commandes suivantes :
+
+
+### $ ls | cat
+
+
+- La commande $ ls | cat affiche la liste des fichiers et répertoires du répertoire courant, comme si on avait juste tapé ls.
+
+Résultat:
+
+root@serveur1:~# ls | cat
+date.sh
+date-toto.sh
+sssef
+
+### ls -l | cat > liste
+
+- La commande ls -l | cat > liste enregistre la liste détaillée des fichiers et répertoires dans un fichier nommé "liste" sans l'afficher à l'écran
+
+
+### ls -l | tee liste
+
+- La commande ls -l | tee liste affiche la liste détaillée des fichiers et répertoires tout en l'enregistrant dans un fichier nommé "liste"
+
+Résultat : 
+
+root@serveur1:~#  ls -l | tee liste
+total 28
+-rwxr-xr-x 1 root root    80 14 oct.  21:19 date.sh
+-rwxr-xr-x 1 root root    87 14 oct.  21:16 date-toto.sh
+-rw-r--r-- 1 root root   218 15 oct.  20:04 liste
+-rw-r--r-- 1 root root 13067  9 oct.  14:45 sssef
+
+### ls -l | tee liste | wc -l
+
+- La commande ls -l | tee liste | wc -l affiche la liste détaillée des fichiers, l'enregistre dans le fichier "liste" et compte le nombre de lignes affichées.
+
+Résultat :
+
+root@serveur1:~# ls -l | tee liste | wc -l
+5
+
+***
+
+# 5 Journal système rsyslog
+
+##  Le service rsyslog est-il lancé sur votre système ? Quel est le PID du démon ?
+
+- Vu que je ne l'avait pas , je l'ai installé avec la commande apt-get install rsyslog puis j'ai utilisé la commande systemctl status rsyslog pour voir si elle etait bien opérationelle.
+- On peut voir sur "Main PID" que PID du démon rsyslogd est 728 .
+
+Résultat :
+
+root@serveur1:~# systemctl status rsyslog
+● rsyslog.service - System Logging Service
+     Loaded: loaded (/lib/systemd/system/rsyslog.service; enabled; preset: enabled)
+     Active: active (running) since Tue 2024-10-15 20:22:10 CEST; 45s ago
+TriggeredBy: ● syslog.socket
+       Docs: man:rsyslogd(8)
+             man:rsyslog.conf(5)
+             https://www.rsyslog.com/doc/
+   Main PID: 728 (rsyslogd)    
+      Tasks: 4 (limit: 2315)
+     Memory: 1.3M
+        CPU: 15ms
+     CGroup: /system.slice/rsyslog.service
+             └─728 /usr/sbin/rsyslogd -n -iNONE
+
+oct. 15 20:22:10 serveur1 systemd[1]: Starting rsyslog.service - System Logging Service...
+oct. 15 20:22:10 serveur1 systemd[1]: Started rsyslog.service - System Logging Service.
+oct. 15 20:22:10 serveur1 rsyslogd[728]: imuxsock: Acquired UNIX socket '/run/systemd/journal/syslog' (fd 3) from syste>
+oct. 15 20:22:10 serveur1 rsyslogd[728]: [origin software="rsyslogd" swVersion="8.2302.0" x-pid="728" x-info="https://w>
+
+
+## Le principal fichier de configuration de rsyslog est /etc/rsyslog.conf. Dans quel fichier rsyslog ´ecrit-il les messages issus des services standards ? Et la plupart des autres messages ? Vérifier le contenu de ces fichiers
+
+- rsyslog écrit les messages issus des services standards principalement dans le fichier /var/log/syslog
+- les messages  peuvent être dirigés vers d'autres fichiers  tels que /var/log/messages
+
+
+##  A quoi sert le service cron ?
+
+- Le service cron sert à exécuter automatiquement des tâches à des horaires réguliers sur un système Unix/Linux. Il permet d'automatiser des commandes et des scripts.
+
+## Que fait la commande tail -f ? 
+
+- La commande tail -f affiche en temps réel les nouvelles lignes ajoutées à un fichier
+
+## A l’aide de cette commande, placer en bas de votre ´ecran un fenˆetre qui permette de visualiser en “temps r´eel” le contenu du fichier /var/log/messages.
+
+- Cela n'a pas fonctionné j'ai donc plutot utilisé la commande tail -f /var/log/syslog
+  
+ Résultat :
+ 
+ root@serveur1:~# tail -f /var/log/syslog
+2024-10-15T20:22:10.717566+02:00 serveur1 kernel: [   10.280610] e1000: enp0s3 NIC Link is Up 1000 Mbps Full Duplex, Flow Control: RX
+2024-10-15T20:22:10.717575+02:00 serveur1 kernel: [   10.323868] IPv6: ADDRCONF(NETDEV_CHANGE): enp0s3: link becomes ready
+2024-10-15T20:22:10.716162+02:00 serveur1 systemd[1]: Listening on syslog.socket - Syslog Socket.
+2024-10-15T20:22:10.718724+02:00 serveur1 systemd[1]: Starting rsyslog.service - System Logging Service...
+2024-10-15T20:22:10.714096+02:00 serveur1 systemd[1]: Started rsyslog.service - System Logging Service.
+2024-10-15T20:22:10.715486+02:00 serveur1 rsyslogd: imuxsock: Acquired UNIX socket '/run/systemd/journal/syslog' (fd 3) from systemd.  [v8.2302.0]
+2024-10-15T20:22:10.715687+02:00 serveur1 rsyslogd: [origin software="rsyslogd" swVersion="8.2302.0" x-pid="728" x-info="https://www.rsyslog.com"] start
+2024-10-15T20:30:01.195847+02:00 serveur1 CRON[745]: (root) CMD ([ -x /etc/init.d/anacron ] && if [ ! -d /run/systemd/system ]; then /usr/sbin/invoke-rc.d anacron start >/dev/null; fi)
+2024-10-15T20:34:59.619392+02:00 serveur1 systemd[1]: anacron.service - Run anacron jobs was skipped because of an unmet condition check (ConditionACPower=true).
+2024-10-15T20:41:39.619741+02:00 serveur1 systemd[1]: apt-daily-upgrade.service - Daily apt upgrade and clean activities was skipped because of an unmet condition check (ConditionACPower=true).
+
+## Que voyez-vous si vous red´emarrez le service cron depuis un autre shell ?
+
+- utilisation de la commande systemctl restart cron et on peut voir les messages qui indiquent que le service cron a été arrêté puis redémarré
+
+Résultat : 
+
+root@serveur1:~# systemctl restart cron
+root@serveur1:~# tail -f /var/log/syslog
+2024-10-15T20:47:56.571251+02:00 serveur1 cron[763]: (CRON) INFO (pidfile fd = 3)
+2024-10-15T20:47:56.571578+02:00 serveur1 systemd[1]: Stopped cron.service - Regular background program processing daemon.
+2024-10-15T20:47:56.571659+02:00 serveur1 cron[763]: (CRON) INFO (Skipping @reboot jobs -- not system startup)
+2024-10-15T20:47:56.572209+02:00 serveur1 systemd[1]: Started cron.service - Regular background program processing daemon.
+2024-10-15T20:49:25.973630+02:00 serveur1 systemd[1]: Stopping cron.service - Regular background program processing daemon...
+2024-10-15T20:49:25.974114+02:00 serveur1 systemd[1]: cron.service: Deactivated successfully.
+2024-10-15T20:49:25.975607+02:00 serveur1 systemd[1]: Stopped cron.service - Regular background program processing daemon.
+2024-10-15T20:49:25.991493+02:00 serveur1 systemd[1]: Started cron.service - Regular background program processing daemon.
+2024-10-15T20:49:26.001319+02:00 serveur1 cron[768]: (CRON) INFO (pidfile fd = 3)
+2024-10-15T20:49:26.003639+02:00 serveur1 cron[768]: (CRON) INFO (Skipping @reboot jobs -- not system startup)
+
+##  Expliquer à quoi sert le fichier /etc/logrotate.conf.
+
+- Le fichier /etc/logrotate.conf sert à gérer la rotation des fichiers de log sur le système. Il indique quand et comment ces fichiers doivent être renommés, archivés ou supprimés pour ne pas prendre trop d’espace disque.
+
+
+
+## Examiner la sortie de la commande dmesg. Quel modele de processeur linux détecte-il sur votre machine ? Quels modéles de cartes réseaux détecte-il
+
+
+- On utilise la commande dmesg | grep -i 'cpu\|network\|eth\|wlan' et on peut voir que le processeur détecter est AMD Ryzen 7 5825U et la carte réseau est Intel PRO/1000 Network Connection
+
+  
+Résultat : 
+
+root@serveur1:~# dmesg | grep -i 'cpu\|network\|eth\|wlan'
+[    0.003504] CPU MTRRs all blank - virtualized system.
+[    0.010977] ACPI: SSDT 0x000000007FFF02A0 00036C (v01 VBOX   VBOXCPUT 00000002 INTL 20100528)
+[    0.018510] smpboot: Allowing 1 CPUs, 0 hotplug CPUs
+[    0.024885] setup_percpu: NR_CPUS:8192 nr_cpumask_bits:1 nr_cpu_ids:1 nr_node_ids:1
+[    0.037329] percpu: Embedded 61 pages/cpu s212992 r8192 d28672 u2097152
+[    0.037338] pcpu-alloc: s212992 r8192 d28672 u2097152 alloc=1*2097152
+[    0.037342] pcpu-alloc: [0] 0
+[    0.037523] kvm-guest: PV spinlocks disabled, single CPU
+[    0.053530] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=1, Nodes=1
+[    0.066648] rcu:     RCU restricting CPUs from NR_CPUS=8192 to nr_cpu_ids=1.
+[    0.066654] rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=1
+[    0.169262] CPU0: Hyper-Threading is disabled
+[    0.300769] smpboot: CPU0: AMD Ryzen 7 5825U with Radeon Graphics (family: 0x19, model: 0x50, stepping: 0x0)
+[    0.302111] smp: Bringing up secondary CPUs ...
+[    0.302114] smp: Brought up 1 node, 1 CPU
+[    0.308518] cpuidle: using governor ladder
+[    0.308528] cpuidle: using governor menu
+[    1.670070] ledtrig-cpu: registered to indicate activity on CPUs
+[    2.423323] e1000: Intel(R) PRO/1000 Network Driver
+[    3.754408] e1000 0000:00:03.0 eth0: (PCI:33MHz:32-bit) 08:00:27:c4:be:36
+[    3.754424] e1000 0000:00:03.0 eth0: Intel(R) PRO/1000 Network Connection
+[    3.767236] e1000 0000:00:03.0 enp0s3: renamed from eth0
+[    7.175804] cryptd: max_cpu_qlen set to 1000
+[    9.821599] audit: type=1400 audit(1729015022.640:5): apparmor="STATUS" operation="profile_load" profile="unconfined" name="/usr/lib/NetworkManager/nm-dhcp-client.action" pid=419 comm="apparmor_parser"
+[    9.821609] audit: type=1400 audit(1729015022.640:6): apparmor="STATUS" operation="profile_load" profile="unconfined" name="/usr/lib/NetworkManager/nm-dhcp-helper" pid=419 comm="apparmor_parser"
 
 
 
