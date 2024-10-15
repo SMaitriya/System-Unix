@@ -27,8 +27,10 @@ Pour établir une connexion SSH à la machine virtuelle :
 Commande => dpkg -l | wc -l
 
 Résultat : 
+```
 root@serveur1:~# dpkg -l | wc -l
 353
+```
 
 Explication:
 - dpkg -l : Liste tous les paquets installés.
@@ -41,6 +43,7 @@ Explication:
 Commande => df -h
 
 Resultat : 
+```
 root@serveur1:~# df -h
 Sys. de fichiers Taille Utilisé Dispo Uti% Monté sur
 udev               965M       0  965M   0% /dev
@@ -51,6 +54,7 @@ tmpfs              5,0M       0  5,0M   0% /run/lock
 /dev/sda2          3,6G     40K  3,4G   1% /tmp
 /dev/sda3          921M    233M  625M  28% /var
 tmpfs              197M       0  197M   0% /run/user/0
+```
 
 Explication:
 - df : "disk free", cette commande affiche des informations sur la taille, l'utilisation et la disponibilité des systèmes de fichiers.
@@ -62,8 +66,12 @@ Explication:
 ### a)echo $LANG
 
 Resultat : 
+
+```
+
 root@serveur1:~# echo $LANG
 fr_FR.UTF-8
+```
 
 Explication : 
 Cette commande affiche les paramètres régionaux du système, indiquant la langue et les réglages en cours d'utilisation. Dans ce cas, cela signifie que le système utilise le français avec encodage UTF-8.
@@ -71,6 +79,7 @@ Cette commande affiche les paramètres régionaux du système, indiquant la lang
 ### b) env
 
 Resultat : 
+```
 root@serveur1:~# env
 SHELL=/bin/bash
 PWD=/root
@@ -91,23 +100,28 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/0/bus
 SSH_TTY=/dev/pts/0
 _=/usr/bin/env
+```
 
 Cette commande retourne toutes les variables d'environnement définies pour la session. Elle affiche des informations telles que la langue utilisée, la connexion SSH, l'ID utilisateur, et le shell actif (bash), etc.
 
 ### c) nom machine : hostname
 
 Résultat : 
+```
 root@serveur1:~# hostname
 serveur1
 Commande : hostname
+```
 
-C'est le nom d'hôte utilisé par le système pour identifier l'ordinateur sur un réseau. Dans ce cas, le nom d'hôte est serveur1.
+- C'est le nom d'hôte utilisé par le système pour identifier l'ordinateur sur un réseau. Dans ce cas, le nom d'hôte est serveur1.
 
 ### d) hostname -d
 
 Resultat:
+```
 root@serveur1:~# hostname -d
 ufr-info-p6.jussieu.fr
+```
 
 Explication : 
 - Cette commande retourne le nom de domaine de la machine. L'option -f peut être utilisée pour afficher le nom d'hôte complet (hostname + domain).
@@ -115,10 +129,13 @@ Explication :
 ### f) verification emplacement depots : cat /etc/apt/sources.list | grep -v -E ’^#|^$’
 
 Résultat : 
+
+```
 root@serveur1:~# cat /etc/apt/sources.list | grep -v -E '^#|^$'
 deb http://deb.debian.org/debian/ bookworm main
 deb http://security.debian.org/debian-security bookworm-security main
 deb http://deb.debian.org/debian/ bookworm-updates main
+```
 
 Explication :
 - cat /etc/apt/sources.list : Affiche le contenu du fichier sources.list.
@@ -131,11 +148,14 @@ Explication :
 ### g) passwd/shadow : cat /etc/shadow | grep -vE ’:\*:|:!\*:’
 
 Résultat : 
+
+```
 root@serveur1:~# cat /etc/shadow | grep -vE ':\*:|:!\*:'
 root:$y$j9T$VbIjgVwGod661jObZXyTs.$lR4TUkEhnXzxOpddANzafGxOKlpmkLuEw4Vko4oZNL6:19998:0:99999:7:::
 messagebus:!:19998::::::
 avahi-autoipd:!:19998::::::
 sshd:!:19998::::::
+```
 
 Explication :
 - cat /etc/shadow : Affiche le contenu du fichier shadow, qui contient les mots de passe des utilisateurs.
@@ -146,8 +166,10 @@ Explication :
 ### h)  compte utilisateurs : cat /etc/passwd | grep -vE ’nologin|sync’
 
 Résultat :
+```
 root@serveur1:~# cat /etc/passwd | grep -vE 'nologin|sync'
 root:x:0:0:root:/root:/bin/bash
+```
 
 Explication :
 - root:x:0:0:root:/root:/bin/bash : x=>mot de passe stocké dans shadow et 0 => IUD  (User ID)
@@ -156,6 +178,7 @@ Explication :
 ### i) fdisk -l 
 
 Résultat:
+```
 root@serveur1:~# fdisk -l
 Disque /dev/sda : 20 GiB, 21474836480 octets, 41943040 secteurs
 Modèle de disque : VBOX HARDDISK
@@ -170,6 +193,7 @@ Périphérique    Début      Fin Secteurs Taille Type
 /dev/sda2    19531776 27344895  7813120   3,7G Système de fichiers Linux
 /dev/sda3    27344896 29298687  1953792   954M Système de fichiers Linux
 /dev/sda4    29298688 41940991 12642304     6G Partition d'échange Linux
+```
 
 Explication:
 - -l : liste les informations
@@ -178,6 +202,8 @@ Explication:
 ### j) fdisk -x
 
 Résultat:
+
+```
 root@serveur1:~# fdisk -x
 Disque /dev/sda : 20 GiB, 21474836480 octets, 41943040 secteurs
 Modèle de disque : VBOX HARDDISK
@@ -201,6 +227,7 @@ Périphérique    Début      Fin Secteurs Type-UUID                            
 /dev/sda3    27344896 29298687  1953792 0FC63DAF-8483-4772-8E79-3D69D8477DE4 6D9CC73D-BFA2-4007-A108-358C76C799A4 les logs
 
 /dev/sda4    29298688 41940991 12642304 0657FD6D-A4AB-43C4-84E5-0933C84B4F4F 51BFF560-C268-45B9-A7C4-B2642DF999E7 ma swap
+```
 
 Explication:
 - -x :  afficher des informations plus détaillées que -l pour les disque
@@ -209,6 +236,7 @@ Explication:
 ### k) df -h
 
 Résultat:
+```
 root@serveur1:~# df -h
 Sys. de fichiers Taille Utilisé Dispo Uti% Monté sur
 udev               965M       0  965M   0% /dev
@@ -219,6 +247,7 @@ tmpfs              5,0M       0  5,0M   0% /run/lock
 /dev/sda2          3,6G     40K  3,4G   1% /tmp
 /dev/sda3          921M    233M  625M  28% /var
 tmpfs              197M       0  197M   0% /run/user/0
+```
 
 Explication:
 - df : Disk Free , elle affiche des informations sur l'utilisation de l'espace disque
