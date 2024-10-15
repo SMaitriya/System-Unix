@@ -36,7 +36,7 @@ The key's randomart image is:
 ***
 
 
-### b) Renommé les dossiers en maclef et maclet.pub
+### b) Renommer les dossiers en maclef et maclet.pub
 
 
 
