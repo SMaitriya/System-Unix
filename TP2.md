@@ -1,7 +1,7 @@
-1.1 Exercice : Connection ssh root (reprise fin tp-01)
+# 1.1 Exercice : Connection ssh root (reprise fin tp-01)
 
 
-a) Creation d'une clef publique et privé dans notre local
+### a) Creation d'une clef publique et privé dans notre local
 
 Résultat :
 
@@ -33,7 +33,7 @@ genere un cople de clé publique / privée id_rsa : fichier qui contient la clé
 ***
 
 
-b) renommé les dossiers en maclef et maclet.pub
+### b) renommé les dossiers en maclef et maclet.pub
 
 - PS C:\Users\maitr> mv C:\Users\maitr\.ssh\id_rsa C:\Users\maitr\.ssh\maclef
 - PS C:\Users\maitr> mv C:\Users\maitr\.ssh\id_rsa.pub C:\Users\maitr\.ssh\maclef.pub
@@ -55,7 +55,7 @@ Mode                 LastWriteTime         Length Name
 ***
 
 
-c) Copier sa clef publique avec la commande cat ~/.ssh/id_rsa.pub
+ ### c) Copier sa clef publique avec la commande cat ~/.ssh/id_rsa.pub
 
 PS C:\Users\maitr> cat ~/.ssh/id_rsa.pub
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC6VVJcvVEWVHEpkwmq1jptiAFDwWdjlc9Y4l85MQYy1jkLxNdRsislWEbBUCL1/6L09FaKDQGqzqpRsv4qfKMDHSHzowxcSZOGqieJq3nhye2gc3kQZV/Xm0xkgyCUmjzDjpgkQpTbePK6JO1xoC1SASN9RJHcSWc8sg+uP4jaLswWBhgyyYJcoMatnDVjaijhHwkLnQehTnOvsP54Lmev0bDFI9/UkAiTAZTUbokiiNmTmYnmSEoDiypq5e5YBynpFrVfkMzZ76saqn5P1jPaa4EOu97Yc1Hk39WV4DwZgXkzjrXluk5yAAxrFkC9BL3y+Q4DyTacakKQ79hNvyLTMKn7BM/Hk8pma+KloRqXMwxPFvEDOL6gA7xXjF2TPRahM29p9HFVs1dymv6m4l+JsCPca2rdjO0EGsfp6tvI8azt77WaNc8HxbE2PwmklufSf1rXmtMN57NK/ZD7MpLEYihfJVmEB8OzMJf3vVWfmWICZxtYD/m3fQZI+1L1T4M= maitr@Maitriya
@@ -66,9 +66,9 @@ Dans le cas reel ne pas mettre de passphrase pour proteger sa clef privé est un
 ***
 
 
-1.3 Exercice : Authentification par clef / Connection serveur
+## 1.3 Exercice : Authentification par clef / Connection serveur
 
-a) Vérifier que le ficher authorized_keys existe :
+### a) Vérifier que le ficher authorized_keys existe :
 
 root@serveur1:~# cd /root/.ssh && ls -l
 total 20
@@ -81,7 +81,7 @@ total 20
 ***
 
 
-b) Accéder au dossier authorized_keys:
+### b) Accéder au dossier authorized_keys:
 
 nano authorized_keys et coller la clef publique
 
@@ -89,7 +89,7 @@ nano authorized_keys et coller la clef publique
 ***
 
 
-1.4 Exercice : Authentification par clef : depuis la machine hote
+## 1.4 Exercice : Authentification par clef : depuis la machine hote
 
 Connection a la machine : ssh -i C:\Users\maitr\.ssh\maclef -p 2222 root@127.0.0.1
 
@@ -110,7 +110,7 @@ Last login: Wed Oct  9 20:59:27 2024 from 10.0.2.2
 ***
 
 
-1.5 Exercice : Securisez
+## 1.5 Exercice : Securisez
 
 - aller dans la config : root@serveur1:~/.ssh# nano /etc/ssh/sshd_config
 - Editer :
@@ -139,10 +139,11 @@ Protection :
 ***
 ***
 
-2) Processus
-2.1 Exercice : Etude des processus UNIX
+# 2) Processus
 
-a) Chercher sur le man la commande pour lister tous les processus
+## 2.1 Exercice : Etude des processus UNIX
+
+### a) Chercher sur le man la commande pour lister tous les processus
 
 1- man ps
 
@@ -240,14 +241,14 @@ root@serveur1:~# ps ax
   ***
 
 
-b) TIME
+### b) TIME
 
 - L'information TIME donne le temps total utilisé par le processus.
 
   ***
 
 
-c) Processus + utilisé le processeur sur votre machine
+### c) Processus + utilisé le processeur sur votre machine
 
 - utilisez la commande "top"
 - Resultat :
@@ -266,7 +267,7 @@ C'est sshd et kworker qui ont le plus utilisé le processeur sur ma machine
 ***
 
 
-d) Premier processus lancé après le démarrage du système : avec -p 1
+### d) Premier processus lancé après le démarrage du système : avec -p 1
 
 Résultat :
 
@@ -280,15 +281,15 @@ Le premier processus lancé après le demarrage est celui avec le PID 1(Process 
 ***
 
 
-e) A quelle heure votre machine a-t-elle démarrée ? 
+### e) A quelle heure votre machine a-t-elle démarrée ? 
 
-e1>
+#### e1>
 Résultat : 
 
 root@serveur1:~# who -b
 démarrage système 2024-10-10 16:03
 
-e2> 
+#### e2> 
 
 root@serveur1:~# uptime
  16:59:27 up 55 min,  2 users,  load average: 0,00, 0,00, 0,0
@@ -298,7 +299,7 @@ root@serveur1:~# uptime
  ***
 
 
-f) Nombre de processus crées : ps -aux | wc -l  
+### f) Nombre de processus crées : ps -aux | wc -l  
 
 Résultat:
 
@@ -312,10 +313,10 @@ Il y'a 77 processus crées.
 ***
 
 
-2.2 -Sous UNIX, chaque processus (except´e le premier) est cr´e´e par un autre processus, son
+## 2.2 -Sous UNIX, chaque processus (except´e le premier) est cr´e´e par un autre processus, son
 processus p`ere. Le processus p`ere d’un processus est identifi´e par son PPID (Parent PID)
 
-=>  Trouver une option de la commande ps permettant d’afficher le PPID d’un processus.
+###  Trouver une option de la commande ps permettant d’afficher le PPID d’un processus.
 
 root@serveur1:~#  ps -o pid,ppid,comm
     PID    PPID COMMAND
@@ -324,7 +325,7 @@ root@serveur1:~#  ps -o pid,ppid,comm
 
 550 et 566 sont les PPID du processus.
 
-– Donner la liste ordonnée de tous les processus ancetres de la commande ps en cours d’exécution.
+### – Donner la liste ordonnée de tous les processus ancetres de la commande ps en cours d’exécution.
 
 root@serveur1:~# ps -o ppid
    PPID
@@ -335,7 +336,7 @@ root@serveur1:~# ps -o ppid
 ***
 ***
     
-3 - Reprendre la question précédente avec la commande pstree.
+# 3 - Reprendre la question précédente avec la commande pstree.
 Vous devrez sans doute installer ce package : voir apt update ; apt search ; apt install.
 
 - Lorsque j'ai fait apt search :
@@ -360,10 +361,10 @@ systemd(1)───sshd(508)───sshd(550)───bash(566)───pstree(
 ***
 
 
-4 - Essayez la commande top, qui affiche les mêmes informations que ps mais en raffraichissant
+# 4 - Essayez la commande top, qui affiche les mêmes informations que ps mais en raffraichissant
 p´eriodiquement l’affichage.
 
-a) Afficher dans top la liste de processus triee par occupation mémoire (“resident memory”) décroissant
+### a) Afficher dans top la liste de processus triee par occupation mémoire (“resident memory”) décroissant
 
 
 - pendant que "top" est lancé j'ai appuyé sur shift + "m"
@@ -392,7 +393,7 @@ a) Afficher dans top la liste de processus triee par occupation mémoire (“res
 ***
 
 
-b)Quel est le processus le plus gournabnd sur votre machine ? A quoi correspond-il ? (rappel :
+### b)Quel est le processus le plus gournabnd sur votre machine ? A quoi correspond-il ? (rappel :
 vous pouvez utiliser man truc pour d´ecouvrir ce que fait truc...).
 
 C'est : systemd . J'ai donc utilisé la commande man systemd pour comprendre ce que c'est, mais c'était assez long.
@@ -402,7 +403,7 @@ Systemd : c'est un système d'initialisation et un gestionnaire de services pour
 
 ***
 
-c) Trouvez les commandes interactives permettant de : passer l’affichage en couleur, mettre en avant le colonne de trie, changer la colonne de trie.
+### c) Trouvez les commandes interactives permettant de : passer l’affichage en couleur, mettre en avant le colonne de trie, changer la colonne de trie.
 
 
 D'après h dans top:
@@ -413,7 +414,7 @@ D'après h dans top:
 
 ***
  
- d) Essayez la commande htop. Expliquez les avantages et/ou inconvénients par rapport a top
+ ### d) Essayez la commande htop. Expliquez les avantages et/ou inconvénients par rapport a top
 
  
 -  Avantages de htop : interface conviviale et facile à utiliser.
@@ -421,7 +422,7 @@ D'après h dans top:
 
 ***
 
-3 Exercice 2 : Arrêt d’un processus
+# 3 Exercice 2 : Arrêt d’un processus
 
 - Créer deux fichiers : 
 
@@ -479,7 +480,7 @@ toto 16:51:01
 toto 16:51:02
 
 
-- Même question en utilisant les commandes ps et kill (avec un PID)
+### - Même question en utilisant les commandes ps et kill (avec un PID)
 
 On lance les scripts. Ensuite on fait une commande pour trouver leur PID : ps aux | grep date puis on fait un kill en utilisant leur PID
 
@@ -499,7 +500,7 @@ date 22:33:38
 root@serveur1:~# kill 988 998
 
   
-- Expliquer les scripts à l’aide du man.
+### Expliquer les scripts à l’aide du man.
 
 
 while true; do ... done : C'est une boucle infinie qui exécute les commandes à l'intérieur de do et done indéfiniment
