@@ -96,7 +96,7 @@ total 20
 
 ### b) Accéder au dossier authorized_keys:
 
-nano authorized_keys et coller la clef publique
+- nano authorized_keys et coller la clef publique
 
 
 ***
@@ -104,7 +104,7 @@ nano authorized_keys et coller la clef publique
 
 ## 1.4 Exercice : Authentification par clef : depuis la machine hote
 
-Connection a la machine : ssh -i C:\Users\maitr\.ssh\maclef -p 2222 root@127.0.0.1
+Connection à la machine : ssh -i C:\Users\maitr\.ssh\maclef -p 2222 root@127.0.0.1
 
 Résultat : 
 
@@ -126,10 +126,14 @@ Last login: Wed Oct  9 20:59:27 2024 from 10.0.2.2
 
 ## 1.5 Exercice : Securisez
 
-- aller dans la config : root@serveur1:~/.ssh# nano /etc/ssh/sshd_config
+- Aller dans la config : root@serveur1:~/.ssh# nano /etc/ssh/sshd_config
 - Editer :
+
+```
 PasswordAuthentication no
 PermitRootLogin without-password
+```
+
 - sauvegarder
 - Restart : root@serveur1:~/.ssh# systemctl restart sshd
 - Resultat :
@@ -141,10 +145,10 @@ root@127.0.0.1: Permission denied (publickey).
 
 - Il faut utiliser sa clef publique pour pouvoir se connecter avec : ssh -i .ssh\maclef -p 2222 root@127.0.0.1
 
-Attaques type brute-force SSH : cela consistent à tester de nombreux mots de passe sur un compte utilisateur pour trouver le bon (via des scripts notamment)
+- Attaques type brute-force SSH : cela consistent à tester de nombreux mots de passe sur un compte utilisateur pour trouver le bon (via des scripts notamment)
 
-Protection :
-- clés SSH comme on vient de faire : connexion par clé publique en déasctivant les connexions par mot de passe
+Protections :
+- Clés SSH comme on vient de faire : connexion par clé publique en déasctivant les connexions par mot de passe
 - Changer le port SSH par défaut (22) : modifier le port pour le SSH . Les bots cherchent généralement sur ce port
 - Limiter les utilisateurs autorisés : sshd_config pour n'autoriser que certains utilisateurs ou groupes à se connecter
 - Configurer un pare-feu (firewall) : Bloquer les connexions sur les ports non utilisés et limiter l'accès par adresse IP.
@@ -167,9 +171,9 @@ Protection :
 
 4- Resultat :
 
-Pour voir tous les processus du système en utilisant la syntaxe BSD :
+"Pour voir tous les processus du système en utilisant la syntaxe BSD :
    ps ax
-   ps axu
+   ps axu"
 
 - Resultat:
 
@@ -279,7 +283,7 @@ root@serveur1:~# ps ax
     688 root      20   0       0      0      0 I   0,3   0,0   0:00.96 kworker/0:0-events
   ```
 
-C'est sshd et kworker qui ont le plus utilisé le processeur sur ma machine
+- C'est sshd et kworker qui ont le plus utilisé le processeur sur ma machine
 
 ***
 
@@ -295,7 +299,7 @@ root@serveur1:~# ps -p 1
       
  ```
      
-Le premier processus lancé après le demarrage est celui avec le PID 1(Process ID 1).
+- Le premier processus lancé après le demarrage est celui avec le PID 1, systemd.
 
 ***
 
@@ -350,7 +354,7 @@ root@serveur1:~#  ps -o pid,ppid,comm
 
 - 550 et 566 sont les PPID du processus.
 
-### – Donner la liste ordonnée de tous les processus ancetres de la commande ps en cours d’exécution.
+###  Donner la liste ordonnée de tous les processus ancetres de la commande ps en cours d’exécution.
 
 ```
 root@serveur1:~# ps -o ppid
@@ -393,8 +397,7 @@ systemd(1)───sshd(508)───sshd(550)───bash(566)───pstree(
 ***
 
 
-# 4 - Essayez la commande top, qui affiche les mêmes informations que ps mais en raffraichissant
-p´eriodiquement l’affichage.
+# 4 - Essayez la commande top, qui affiche les mêmes informations que ps mais en raffraichissant périodiquement l’affichage.
 
 ### a) Afficher dans top la liste de processus triee par occupation mémoire (“resident memory”) décroissant
 
@@ -426,12 +429,9 @@ p´eriodiquement l’affichage.
 ***
 
 
-### b)Quel est le processus le plus gournabnd sur votre machine ? A quoi correspond-il ? (rappel :
-vous pouvez utiliser man truc pour d´ecouvrir ce que fait truc...).
+### b)Quel est le processus le plus gourmand sur votre machine ? A quoi correspond-il ? (rappel : vous pouvez utiliser man truc pour d´ecouvrir ce que fait truc...).
 
-C'est : systemd . J'ai donc utilisé la commande man systemd pour comprendre ce que c'est, mais c'était assez long.
-
-Systemd : c'est un système d'initialisation et un gestionnaire de services pour Linux, chargé de démarrer les processus et de gérer les dépendances des services. Il assure également la journalisation des événements système.
+- C'est  le systemd . C'est un système d'initialisation et un gestionnaire de services pour Linux, chargé de démarrer les processus et de gérer les dépendances des services. Il assure également la journalisation des événements système.
 
 
 ***
@@ -466,7 +466,7 @@ root@serveur1:~# nano date.sh
 
 #### - Coller le script demandé et enregistré
 
-#### - Lancer le 1er scripts, les rendez exécutable avec Le mettre en arriere plan (CTRL-Z).
+#### - Lancer le 1er scripts,  le mettre en arriere plan (CTRL-Z).
 
 ```
 root@serveur1:~# ./date.sh
@@ -551,20 +551,20 @@ root@serveur1:~# kill 988 998
 ### Expliquer les scripts à l’aide du man.
 
 
-while true; do ... done : C'est une boucle infinie qui exécute les commandes à l'intérieur de do et done indéfiniment
+- while true; do ... done : C'est une boucle infinie qui exécute les commandes à l'intérieur de do et done indéfiniment
 
-sleep 1 : Cette commande suspend l'exécution du script pendant 1 seconde
+- sleep 1 : Cette commande suspend l'exécution du script pendant 1 seconde
 
-echo -n 'date ' : Cette commande affiche "date " 
+- echo -n 'date ' : Cette commande affiche "date " 
 
-date +%T : Cette commande affiche l'heure actuelle
+- date +%T : Cette commande affiche l'heure actuelle
 
-echo -n 'toto ' : Affiche "toto"
+- echo -n 'toto ' : Affiche "toto"
 
-date --date '5 hour ago' +%T : Cette commande affiche l'heure actuelle moins 5 heures
+- date --date '5 hour ago' +%T : Cette commande affiche l'heure actuelle moins 5 heures
 
 
-En bref , le premier script affiche l'heure actuelle, tandis que le deuxième affiche l'heure qu'il était 5 heures auparavant
+- En bref , le premier script affiche l'heure actuelle, tandis que le deuxième affiche l'heure qu'il était 5 heures auparavant
 
 
 ***
@@ -631,7 +631,7 @@ root@serveur1:~# ls -l | tee liste | wc -l
 
 ##  Le service rsyslog est-il lancé sur votre système ? Quel est le PID du démon ?
 
-- Vu que je ne l'avait pas , je l'ai installé avec la commande apt-get install rsyslog puis j'ai utilisé la commande systemctl status rsyslog pour voir si elle etait bien opérationelle.
+- Vu que je ne l'avais pas, je l'ai installé avec la commande apt-get install rsyslog, puis j'ai utilisé la commande systemctl status rsyslog pour voir si elle était bien opérationnelle.
 - On peut voir sur "Main PID" que PID du démon rsyslogd est 728 .
 
 Résultat :
@@ -667,7 +667,7 @@ oct. 15 20:22:10 serveur1 rsyslogd[728]: [origin software="rsyslogd" swVersion="
 
 ##  A quoi sert le service cron ?
 
-- Le service cron sert à exécuter automatiquement des tâches à des horaires réguliers sur un système Unix/Linux. Il permet d'automatiser des commandes et des scripts.
+- Le service cron sert à exécuter automatiquement des tâches à des horaires réguliers. Il permet d'automatiser des commandes et des scripts.
 
 ## Que fait la commande tail -f ? 
 
@@ -675,7 +675,7 @@ oct. 15 20:22:10 serveur1 rsyslogd[728]: [origin software="rsyslogd" swVersion="
 
 ## A l’aide de cette commande, placer en bas de votre ´ecran un fenˆetre qui permette de visualiser en “temps r´eel” le contenu du fichier /var/log/messages.
 
-- Cela n'a pas fonctionné j'ai donc plutot utilisé la commande tail -f /var/log/syslog
+- Cela n'a pas fonctionné, j'ai donc plutôt utilisé la commande tail -f /var/log/syslog.
   
  Résultat :
 
@@ -693,25 +693,23 @@ oct. 15 20:22:10 serveur1 rsyslogd[728]: [origin software="rsyslogd" swVersion="
 2024-10-15T20:41:39.619741+02:00 serveur1 systemd[1]: apt-daily-upgrade.service - Daily apt upgrade and clean activities was skipped because of an unmet condition check (ConditionACPower=true).
 ```
 
-## Que voyez-vous si vous red´emarrez le service cron depuis un autre shell ?
+## Que voyez-vous si vous redémarrez le service cron depuis un autre shell ?
 
-- utilisation de la commande systemctl restart cron et on peut voir les messages qui indiquent que le service cron a été arrêté puis redémarré
+- utilisation de la commande systemctl restart cron. On peut voir les messages qui indiquent que le service cron a été arrêté puis redémarré
 
 Résultat : 
 
 ```
-root@serveur1:~# systemctl restart cron
 root@serveur1:~# tail -f /var/log/syslog
-2024-10-15T20:47:56.571251+02:00 serveur1 cron[763]: (CRON) INFO (pidfile fd = 3)
-2024-10-15T20:47:56.571578+02:00 serveur1 systemd[1]: Stopped cron.service - Regular background program processing daemon.
-2024-10-15T20:47:56.571659+02:00 serveur1 cron[763]: (CRON) INFO (Skipping @reboot jobs -- not system startup)
-2024-10-15T20:47:56.572209+02:00 serveur1 systemd[1]: Started cron.service - Regular background program processing daemon.
-2024-10-15T20:49:25.973630+02:00 serveur1 systemd[1]: Stopping cron.service - Regular background program processing daemon...
-2024-10-15T20:49:25.974114+02:00 serveur1 systemd[1]: cron.service: Deactivated successfully.
-2024-10-15T20:49:25.975607+02:00 serveur1 systemd[1]: Stopped cron.service - Regular background program processing daemon.
-2024-10-15T20:49:25.991493+02:00 serveur1 systemd[1]: Started cron.service - Regular background program processing daemon.
-2024-10-15T20:49:26.001319+02:00 serveur1 cron[768]: (CRON) INFO (pidfile fd = 3)
-2024-10-15T20:49:26.003639+02:00 serveur1 cron[768]: (CRON) INFO (Skipping @reboot jobs -- not system startup)
+2024-10-15T22:17:50.994240+02:00 serveur1 CRON[827]: (root) CMD (cd / && run-parts --report /etc/cron.hourly)
+2024-10-15T22:29:03.021138+02:00 serveur1 systemd[1]: Started session-9.scope - Session 9 of User root.
+2024-10-15T22:29:25.759831+02:00 serveur1 systemd[1]: Stopping cron.service - Regular background program processing daemon...
+2024-10-15T22:29:25.761365+02:00 serveur1 systemd[1]: cron.service: Deactivated successfully.
+2024-10-15T22:29:25.763155+02:00 serveur1 systemd[1]: Stopped cron.service - Regular background program processing daemon.
+2024-10-15T22:29:25.789094+02:00 serveur1 systemd[1]: Started cron.service - Regular background program processing daemon.
+2024-10-15T22:29:25.805915+02:00 serveur1 cron[846]: (CRON) INFO (pidfile fd = 3)
+2024-10-15T22:29:25.807086+02:00 serveur1 cron[846]: (CRON) INFO (Skipping @reboot jobs -- not system startup)
+
 ```
 
 ##  Expliquer à quoi sert le fichier /etc/logrotate.conf.
