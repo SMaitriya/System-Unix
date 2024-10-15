@@ -1,13 +1,13 @@
-1. Installation de la Machine Virtuelle
+# 1. Installation de la Machine Virtuelle
 
 - Rencontré des difficultés de compréhension, mais j'ai finalement réussi.
 
 ***
 
 
-2. Post-Installation
+# 2. Post-Installation
    
-2.1 Configuration SSH et Connexion
+## 2.1 Configuration SSH et Connexion
    
 Pour établir une connexion SSH à la machine virtuelle :
 
@@ -22,7 +22,7 @@ Pour établir une connexion SSH à la machine virtuelle :
 (Cela n'a pas fonctionné chez moi, j'ai alors utiliser ip a sur la machine virtuelle pour obtenir l'IP et exécuté ssh -p 2222 root@127.0.0.1 depuis le terminal).
 
 
-2.3 Nombre de paquets
+## 2.3 Nombre de paquets
 
 Commande => dpkg -l | wc -l
 
@@ -36,7 +36,7 @@ Explication:
 - Ainsi, la commande dpkg -l | wc -l donne le nombre total de paquets installés.
 
 
-2.4 Space Usage
+## 2.4 Space Usage
 
 Commande => df -h
 
@@ -57,9 +57,9 @@ Explication:
 - -h : signifie "human-readable", ce qui convertit les informations en un format facile à lire ( des unités comme Mo, Go, To au lieu de blocs).
 
 
-2.5) Indiquer dans le rendu et expliquer les commandes et le resultat obtenu
+## 2.5) Indiquer dans le rendu et expliquer les commandes et le resultat obtenu
 
-a)echo $LANG
+### a)echo $LANG
 
 Resultat : 
 root@serveur1:~# echo $LANG
@@ -68,7 +68,7 @@ fr_FR.UTF-8
 Explication : 
 Cette commande affiche les paramètres régionaux du système, indiquant la langue et les réglages en cours d'utilisation. Dans ce cas, cela signifie que le système utilise le français avec encodage UTF-8.
 
-b) env
+### b) env
 
 Resultat : 
 root@serveur1:~# env
@@ -94,7 +94,7 @@ _=/usr/bin/env
 
 Cette commande retourne toutes les variables d'environnement définies pour la session. Elle affiche des informations telles que la langue utilisée, la connexion SSH, l'ID utilisateur, et le shell actif (bash), etc.
 
-c) nom machine : hostname
+### c) nom machine : hostname
 
 Résultat : 
 root@serveur1:~# hostname
@@ -103,7 +103,7 @@ Commande : hostname
 
 C'est le nom d'hôte utilisé par le système pour identifier l'ordinateur sur un réseau. Dans ce cas, le nom d'hôte est serveur1.
 
-d) hostname -d
+### d) hostname -d
 
 Resultat:
 root@serveur1:~# hostname -d
@@ -112,7 +112,7 @@ ufr-info-p6.jussieu.fr
 Explication : 
 - Cette commande retourne le nom de domaine de la machine. L'option -f peut être utilisée pour afficher le nom d'hôte complet (hostname + domain).
   
-f) verification emplacement depots : cat /etc/apt/sources.list | grep -v -E ’^#|^$’
+### f) verification emplacement depots : cat /etc/apt/sources.list | grep -v -E ’^#|^$’
 
 Résultat : 
 root@serveur1:~# cat /etc/apt/sources.list | grep -v -E '^#|^$'
@@ -128,7 +128,7 @@ Explication :
 - '^#|^$' : Exclut les lignes commençant par # (commentaires) 
 - cat /etc/apt/sources.list | grep -v -E '^#|^$' :  permet d'afficher uniquement les lignes non commentées du fichier /etc/apt/sources.list, qui contient la liste des dépôts de paquets.
 
-g) passwd/shadow : cat /etc/shadow | grep -vE ’:\*:|:!\*:’
+### g) passwd/shadow : cat /etc/shadow | grep -vE ’:\*:|:!\*:’
 
 Résultat : 
 root@serveur1:~# cat /etc/shadow | grep -vE ':\*:|:!\*:'
@@ -143,7 +143,7 @@ Explication :
 - La commande cat /etc/shadow | grep -vE ':\*:|:!\*:' affiche les comptes d'utilisateurs avec des mots de passe actifs (stockés sous forme cryptée) tout en excluant ceux qui sont désactivés ou verrouillés.
 
 
-h)  compte utilisateurs : cat /etc/passwd | grep -vE ’nologin|sync’
+### h)  compte utilisateurs : cat /etc/passwd | grep -vE ’nologin|sync’
 
 Résultat :
 root@serveur1:~# cat /etc/passwd | grep -vE 'nologin|sync'
@@ -153,7 +153,7 @@ Explication :
 - root:x:0:0:root:/root:/bin/bash : x=>mot de passe stocké dans shadow et 0 => IUD  (User ID)
 - cat /etc/passwd | grep -vE 'nologin|sync' : affiche les informations du compte "root", en omettant les comptes d'utilisateurs qui ne peuvent pas se connecter, comme ceux ayant nologin ou sync
   
-i) fdisk -l 
+### i) fdisk -l 
 
 Résultat:
 root@serveur1:~# fdisk -l
@@ -175,7 +175,7 @@ Explication:
 - -l : liste les informations
 - fdisk -l  : Affiche les partitions du disque dur du système
 
-j) fdisk -x
+### j) fdisk -x
 
 Résultat:
 root@serveur1:~# fdisk -x
@@ -206,7 +206,7 @@ Explication:
 - -x :  afficher des informations plus détaillées que -l pour les disque
 - Cette commande retourne des informations détaillées sur les partitions du disque principal, y compris le type d'étiquette, ainsi qu'un tableau indiquant les périphériques, les secteurs, des identifiants uniques pour chaque partition et leur type
 
-k) df -h
+### k) df -h
 
 Résultat:
 root@serveur1:~# df -h
@@ -227,11 +227,11 @@ Explication:
 ***
 
 
-3.1) installation automatique
+## 3.1) installation automatique
 
 Un fichier preseed est un fichier texte utilisé pour automatiser l'installation d'un système d'exploitation en fournissant des réponses aux questions, ce qui facilite les installations sur plusieurs ordinateurs.
 
-3.2 rescue mode
+## 3.2 rescue mode
 
 - J'ai redémarré la machine virtuelle et accédé au menu GRUB en appuyant sur Shift pendant le démarrage.
 - Dans le menu GRUB, j'ai recherché et sélectionné l'option "Recovery mode".
@@ -242,7 +242,7 @@ Un fichier preseed est un fichier texte utilisé pour automatiser l'installation
 - J'ai redémarré la machine.
 - Après le redémarrage, j'ai pu me connecter en tant que root avec le nouveau mot de passe.
 
-3.3 redimentionnement partition
+## 3.3 redimentionnement partition
 
 - Vérifier l'état des disques et partitions avec df -h et fdisk -l.
 - Démonter la partition racine avec umount /dev/sda1 en mode recovery (ou via un live USB).
