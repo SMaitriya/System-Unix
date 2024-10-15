@@ -7,7 +7,7 @@
 - Générez une paire de clés publique/privée : id_rsa pour le fichier contenant la clé privée et id_rsa.pub pour le fichier contenant la clé publique.
 
 Résultat :
-
+```
 PS C:\Users\maitr> ssh-keygen
 Generating public/private rsa key pair.
 Enter file in which to save the key (C:\Users\maitr/.ssh/id_rsa):#vide
@@ -30,7 +30,7 @@ The key's randomart image is:
 |            +==BB|
 +----[SHA256]-----+
 
-
+```
 
 
 ***
