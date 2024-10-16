@@ -171,11 +171,6 @@ Protections :
 
 4- Resultat :
 
-"Pour voir tous les processus du système en utilisant la syntaxe BSD :
-   ps ax
-   ps axu"
-
-- Resultat:
 
 ```
 root@serveur1:~# ps ax
