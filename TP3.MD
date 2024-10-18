@@ -39,7 +39,7 @@ CONCAT="$1$2"
   echo "Résultat de la concaténation : $CONCAT"
 fi
 ```
-Résultat :
+- Résultat :
 
 ```
 root@serveur1:~# ./concat.sh Salut toi
@@ -48,7 +48,8 @@ Résultat de la concaténation : Saluttoi
 
 # Exercice : argument type et droits
 
-Script : 
+- Script : 
+```
 #!/bin/sh
 if [ $# -eq 0 ]; then
     echo "Il faut un fichier"
@@ -57,11 +58,36 @@ fi
 fichier="$1"
 type=$(file -b "$fichier")
 droits=$(stat -c "%A" "$fichier")
-echo "Le fichier $fichier est un $type, accessible par $USER en $droits"      
+echo "Le fichier $fichier est un $type, accessible par $USER en $droits"
+```
 
-Résultat : 
+- Résultat : 
+```
 root@serveur1:~# bash ./test-fichier.sh testpourscript.txt
 Le fichier testpourscript.txt est un directory, accessible par root en drwxr-xr-x
+```
+
+
+# Exercice : Afficher le contenu d’un répertoire
+(commencement)
+-Script:
+#!/bin/sh
+#!/bin/sh
+if [ $# -ne 1 ]; then
+  echo "Il faut un argument"
+  exit 1
+fi
+directory="$1"
+if [ ! -d "$directory" ]; then
+  echo "Le répertoire spécifié n'existe pas."
+  exit 1
+fi
+echo " fichiers dans $directory/"
+find "$directory" -maxdepth 1 -type f
+
+
+
+
 
 
 
