@@ -1,16 +1,56 @@
+# Exercice : paramètres
+
+
 - Faire nano analyse.sh
 - Faire le script :
 
+```
 #!/bin/sh
-
 echo "Bonjour, vous avez rentre $# paramètres."
 echo "Le nom du script est $0"
 echo "Le 3`eme paramètre est $3"
 echo "Voici la liste des paramètres : $@"
-
+```
 - enregistrer
 
 Tester :
+
+```
 root@serveur1:~# ./analyse.sh un deux trois
 -bash: ./analyse.sh: Permission non accordée
 root@serveur1:~# chmod +x analyse.sh
+root@serveur1:~# ./analyse.sh un deux trois
+Bonjour, vous avez rentre 3 paramètres.
+Le nom du script est ./analyse.sh
+Le 3eme paramètre est trois
+Voici la liste des paramètres : un deux trois
+```
+
+# Exercice : vérification du nombre de paramètres
+
+- Script : 
+```
+#!/bin/sh
+if [ "$#" -ne 2 ]; then
+  echo "Il faut deux paramètres!"
+  exit 1
+else
+CONCAT="$1$2"
+  echo "Résultat de la concaténation : $CONCAT"
+fi
+```
+Résultat :
+
+root@serveur1:~# ./concat.sh Salut toi
+Résultat de la concaténation : Saluttoi
+
+# Exercice : argument type et droits
+
+
+
+
+
+
+
+
+
