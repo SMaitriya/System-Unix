@@ -41,10 +41,29 @@ fi
 ```
 Résultat :
 
+```
 root@serveur1:~# ./concat.sh Salut toi
 Résultat de la concaténation : Saluttoi
+```
 
 # Exercice : argument type et droits
+
+Script : 
+#!/bin/sh
+if [ $# -eq 0 ]; then
+    echo "Il faut un fichier"
+    exit 1
+fi
+fichier="$1"
+type=$(file -b "$fichier")
+droits=$(stat -c "%A" "$fichier")
+echo "Le fichier $fichier est un $type, accessible par $USER en $droits"      
+
+Résultat : 
+root@serveur1:~# bash ./test-fichier.sh testpourscript.txt
+Le fichier testpourscript.txt est un directory, accessible par root en drwxr-xr-x
+
+
 
 
 
