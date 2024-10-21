@@ -74,7 +74,6 @@ Le fichier testpourscript.txt est un directory, accessible par root en drwxr-xr-
 ```
 
 #!/bin/sh
-```
 if [ $# -ne 1 ]; then        # Vérifie si un argument est fourni
   echo "Il faut un argument"
   exit 1
