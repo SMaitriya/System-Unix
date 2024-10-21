@@ -71,21 +71,47 @@ Le fichier testpourscript.txt est un directory, accessible par root en drwxr-xr-
 # Exercice : Afficher le contenu d’un répertoire
 (commencement)
 -Script:
+```
+
 #!/bin/sh
-#!/bin/sh
-if [ $# -ne 1 ]; then
+```
+if [ $# -ne 1 ]; then        # Vérifie si un argument est fourni
   echo "Il faut un argument"
   exit 1
 fi
 directory="$1"
-if [ ! -d "$directory" ]; then
+if [ ! -d "$directory" ]; then # vérifie si c'est un répertoire
   echo "Le répertoire spécifié n'existe pas."
   exit 1
 fi
-echo " fichiers dans $directory/"
-find "$directory" -maxdepth 1 -type f
+echo "####### Fichiers dans $directory/"
+
+ # Affiche les fichiers et vérifie s'il y en a
+find "$directory" -maxdepth 1 -type f 
+
+if [ $(find "$directory" -maxdepth 1 -type f | wc -l) -eq 0 ]; then
+  echo "Aucun fichier trouvé dans $directory."
+fi
+```
 
 
+
+Résultat : 
+
+- On va créer un répertoire test avec des fichiers à l'intérieur pour tester. On va aussi tester sur un répertoire inexistant
+```
+
+root@serveur1:~# ./listedir.sh sshd
+Le répertoire spécifié n'existe pas.
+root@serveur1:~# mkdir repertoiretest
+root@serveur1:~# touch repertoiretest/fichier1.txt
+root@serveur1:~# touch repertoiretest/fichier2.txt
+root@serveur1:~# ./listedir.sh repertoiretest
+####### Fichiers dans repertoiretest/
+repertoiretest/fichier2.txt
+repertoiretest/fichier1.txt
+
+```
 
 
 
