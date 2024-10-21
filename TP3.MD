@@ -112,7 +112,7 @@ repertoiretest/fichier1.txt
 
 ```
 
-Exercice : Lister les utilisateurs
+# Exercice : Lister les utilisateurs
 
 
 Script :
@@ -144,6 +144,51 @@ systemd-timesync : 997
 avahi-autoipd : 101
 sshd : 102
 ```
+
+# Exercice : Mon utilisateur existe t’il
+
+Script:
+```
+
+# Récupération des paramètres
+login_utilisateur="$1"
+uid_utilisateur="$2"
+
+# Vérification par login
+uid_login=$(getent passwd "$login_utilisateur" | cut -d: -f3)
+if [ -n "$uid_login" ]; then
+    echo "L'utilisateur '$login_utilisateur' existe avec UID : $uid_login"
+fi
+
+# Vérification par UID
+login_uid=$(getent passwd | awk -F: -v uid="$uid_utilisateur" '$3 == uid {print $1}')
+if [ -n "$login_uid" ]; then
+    echo "L'utilisateur avec UID '$uid_utilisateur' est : $login_uid"
+fi
+ 3)
+for user in $(cut -d: -f1,3 /etc/passwd); do
+    # Utilisation de awk pour séparer le nom d'utilisateur et l'UID
+    login=$(echo "$user" | awk -F: '{print $1}')
+    uid=$(echo "$user" | awk -F: '{print $2}')
+    # Vérification si l'UID est supérieur à 100
+    if [ "$uid" -gt 100 ]; then
+        echo "$login : $uid"
+    fi
+done
+```
+
+
+Résultat : 
+```
+
+root@serveur1:~# ./verifier_utilisateur.sh login nobody
+L'utilisateur existe avec UID : 65534
+root@serveur1:~# ./verifier_utilisateur.sh UID 65534
+L'utilisateur existe avec UID : 65534
+```
+
+
+# Exercice : Creation utilisateur
 
 
 
