@@ -201,10 +201,6 @@ if [ "$EUID" -ne 0 ]; then
     exit 1
 fi
 
-# Source du fichier d'existence d'utilisateur
-fichier="liste_utilisateurs.sh"
-source $fichier
-
 # Fonction pour vérifier si un répertoire home existe déjà
 check_home_directory() {
     home_dir="/home/$1"
@@ -216,13 +212,25 @@ check_home_directory() {
     fi
 }
 
-# Demander des informations pour la creation du nouvel utilisateur
+# Demander des informations pour la création du nouvel utilisateur
 read -p "Login : " login
-check_login "$login"  # Vérifier si l'utilisateur existe déjà
+
+# Vérifier si l'utilisateur existe déjà
+if id "$login" &>/dev/null; then
+    echo "L'utilisateur $login existe déjà. Veuillez choisir un autre login."
+    exit 1
+fi
+
 read -p "Nom : " nom
 read -p "Prénom : " prenom
 read -p "UID : " uid
-check_uid "$uid" # Vérifier si l'UID existe déjà
+
+# Vérifier si l'UID existe déjà
+if getent passwd "$uid" &>/dev/null; then
+    echo "L'UID $uid existe déjà. Veuillez choisir un autre UID."
+    exit 1
+fi
+
 read -p "GID : " gid
 read -p "Commentaires : " commentaires
 
@@ -234,7 +242,160 @@ if check_home_directory "$login"; then
 else
     echo "La création de l'utilisateur a été annulée en raison de la présence d'un répertoire home existant."
 fi
+
 ```
+
+
+Résultat:
+
+```
+
+root@serveur1:~# ./create_user.sh
+Login : newuser
+Nom : Dupond
+Prénom : Jean
+UID : 2301
+GID : 100
+Commentaires : Utilisateur test
+L'utilisateur newuser a été créé avec succès.
+root@serveur1:~# ./liste_utilisateurs.sh
+Liste des utilisateurs avec un UID supérieur à 100 :
+nobody : 65534
+systemd-network : 998
+systemd-timesync : 997
+avahi-autoipd : 101
+sshd : 102
+newuser : 2301
+```
+
+Exercice : lecture au clavier
+
+- Test 1
+```
+root@serveur1:~# echo -n "Entrer votre nom: "
+Entrer votre nom: root@serveur1:~# Mat
+-bash: Mat : commande introuvable
+root@serveur1:~# read nom
+mat
+root@serveur1:~# echo "Votre nom est $nom"
+Votre nom est mat
+```
+
+Script : 
+```
+
+#!/bin/bash
+
+# Vérification du nombre de paramètres
+if [ $# -ne 1 ]; then
+    echo "Utilisation : $0 <répertoire>"
+    exit 1
+fi
+
+directory="$1"
+
+# Vérification de l'existence du répertoire
+if [ ! -d "$directory" ]; then
+    echo "Le répertoire spécifié n'existe pas."
+    exit 1
+fi
+
+# Compteur pour les fichiers texte
+count=0
+
+# Parcours du répertoire
+for file in "$directory"/*; do
+    if [ -f "$file" ] && file -b "$file" | grep -q "text"; then
+        count=$((count + 1))
+        echo "Fichier trouvé : $file"  # Message de débogage
+        read -p "Voulez-vous visualiser le fichier $file ? (O/n) " response
+        if [[ "$response" =~ ^[Oo]$ ]]; then
+            more "$file"
+        fi
+    fi
+done
+
+if [ $count -eq 0 ]; then
+    echo "Aucun fichier texte trouvé dans le répertoire $directory."
+fi
+```
+
+
+
+Résultat :
+```
+root@serveur1:~# ./visualiser.sh repertoiretest
+Voulez-vous visualiser le fichier repertoiretest/fichier1.txt ? (O/n)
+#affichage du texte
+```
+
+# Exercice : appréciation
+
+
+Script : 
+
+```
+#!/bin/bash
+
+while true; do
+    read -p "Entrez une note (ou 'q' pour quitter) : " note
+
+    if [ "$note" = "q" ]; then
+        echo "Programme quitté."
+        exit 0
+    fi
+
+    if [[ $note =~ ^-?[0-9]+$ ]]; then
+        if ((note >= 16 && note <= 20)); then
+            echo "Très bien"
+        elif ((note >= 14 && note < 16)); then
+            echo "Bien"
+        elif ((note >= 12 && note < 14)); then
+            echo "Assez bien"
+        elif ((note >= 10 && note < 12)); then
+            echo "Moyen"
+        elif ((note < 10)); then
+            echo "Insuffisant"
+        else
+            echo "Note invalide. La note doit être entre 0 et 20."
+        fi
+    else
+        echo "Veuillez entrer un entier."
+    fi
+done
+```
+
+
+
+
+
+Résultat :
+
+```
+root@serveur1:~# ./evaluer.ssh
+Entrez une note (ou 'q' pour quitter) : 17
+Très bien
+Entrez une note (ou 'q' pour quitter) : 10
+Moyen
+Entrez une note (ou 'q' pour quitter) : 5
+Insuffisant
+Entrez une note (ou 'q' pour quitter) : q
+Programme quitté.
+root@serveur1:~# ./evaluer.ssh
+Entrez une note (ou 'q' pour quitter) : 17
+Très bien
+Entrez une note (ou 'q' pour quitter) : 15
+Bien
+Entrez une note (ou 'q' pour quitter) : 13
+Assez bien
+Entrez une note (ou 'q' pour quitter) : 10
+Moyen
+Entrez une note (ou 'q' pour quitter) : 5
+Insuffisant
+Entrez une note (ou 'q' pour quitter) : q
+Programme quitté.
+```
+
 
 
 
