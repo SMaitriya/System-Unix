@@ -69,7 +69,6 @@ Le fichier testpourscript.txt est un directory, accessible par root en drwxr-xr-
 
 
 # Exercice : Afficher le contenu d’un répertoire
-(commencement)
 -Script:
 ```
 
